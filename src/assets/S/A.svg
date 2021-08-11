@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="607" height="807" sodipodi:docbase="/home/silsor/graphics/mine" sodipodi:docname="aceofspades.svg" sodipodi:version="0.32" viewBox="68.547241 122.68109 607 807" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd">
+<metadata>
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/2.0/"/>
+<dc:title>Ace of Spades</dc:title>
+<dc:creator>
+<cc:Agent>
+<dc:title>Jeff Bonham</dc:title>
+</cc:Agent>
+</dc:creator>
+<dc:source>http://commons.wikimedia.org/wiki/Image:Aceofspades.svg</dc:source>
+<dc:description>Ace of Spades card logo.  Created in Inkscape.</dc:description>
+<dc:subject>
+<rdf:Bag>
+<rdf:li>ace</rdf:li>
+<rdf:li>spade</rdf:li>
+<rdf:li>spades</rdf:li>
+</rdf:Bag>
+</dc:subject>
+</cc:Work>
+<cc:License rdf:about="http://creativecommons.org/licenses/by-sa/2.0/">
+<cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+<cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+<cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+<cc:requires rdf:resource="http://web.resource.org/cc/Attribution"/>
+<cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+<cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+</cc:License>
+</rdf:RDF>
+</metadata>
+<g>
+<rect x="72.047" y="126.18" width="600" height="800" rx="17.143" ry="17.143" color="#000000" display="block" fill="#fff" stroke="#000" stroke-width="5"/>
+<path d="m261.03 464.19c-131.54 134.38-3.6047 232.26 100.39 168.1 0.56663 33.098-25.384 63.998-41.346 93.544h112.29c-16.434-28.717-43.883-60.354-44.886-93.544 106.18 60.994 219.1-45.375 101.28-168.1-61.432-67.399-99.835-119.84-114.3-137.67-13.201 17.381-48.368 68.49-113.42 137.67z" fill-rule="evenodd" stroke="#000" stroke-width=".92204pt" sodipodi:nodetypes="cccccccc"/>
+<text x="82.752068" y="206.35907" fill="#000000" font-family="Bitstream Vera Serif" font-size="95.593" stroke-width="1pt" sodipodi:linespacing="100%" xml:space="preserve"><tspan x="82.752068" y="206.35907" sodipodi:role="line">A</tspan></text>
+<text transform="scale(-1)" x="-664.06226" y="-846.08978" fill="#000000" font-family="Bitstream Vera Serif" font-size="95.593" stroke-width="1pt" sodipodi:linespacing="100%" xml:space="preserve"><tspan x="-664.06226" y="-846.08978" sodipodi:role="line">A</tspan></text>
+<path d="m97.688 236.9c-22.207 22.687-0.60857 39.211 16.949 28.38 0.09566 5.5878-4.2855 10.804-6.9803 15.793h18.957c-2.7744-4.8481-7.4086-10.189-7.578-15.793 18.046 10.719 36.989-7.6605 17.098-28.38-10.371-11.379-16.855-20.232-19.298-23.242-2.2286 2.9344-8.1658 11.563-19.148 23.242z" fill-rule="evenodd" stroke="#000" stroke-width=".15566pt" sodipodi:nodetypes="cccccccc"/>
+<path d="m650.17 815.68c22.207-22.687 0.60857-39.211-16.949-28.38-0.09566-5.5878 4.2855-10.804 6.9803-15.793h-18.957c2.7744 4.8481 7.4086 10.189 7.578 15.793-18.046-10.719-36.989 7.6605-17.098 28.38 10.371 11.379 16.855 20.232 19.298 23.242 2.2286-2.9344 8.1658-11.563 19.148-23.242z" fill-rule="evenodd" stroke="#000" stroke-width=".15566pt" sodipodi:nodetypes="cccccccc"/>
+</g>
+</svg>
