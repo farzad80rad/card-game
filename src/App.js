@@ -1,11 +1,11 @@
-import cardPic from "./assets/2C.svg";
+import Card from "./components/Card";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={cardPic} alt="logo" />
+        <Card id="c2" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

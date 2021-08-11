@@ -1,4 +1,7 @@
-import style from "../styles/card.css";
+import "../styles/card.css";
+import React, { useEffect } from "react";
+
+import cardBackSvg from "../assets/Card_back_01.svg";
 
 import CA from "../assets/C/A.svg";
 import C2 from "../assets/C/2.svg";
@@ -141,91 +144,109 @@ function getCard(id) {
     case sk:
       return SK;
 
-    case sa:
-      return SA;
-    case s2:
-      return S2;
-    case s3:
-      return S3;
-    case s4:
-      return S4;
-    case s5:
-      return S5;
-    case s6:
-      return S6;
-    case s7:
-      return S7;
-    case s8:
-      return S8;
-    case s9:
-      return S9;
-    case s10:
-      return S10;
-    case sj:
-      return SJ;
-    case sq:
-      return SQ;
-    case sk:
-      return SK;
+    case ca:
+      return CA;
+    case c2:
+      return C2;
+    case c3:
+      return C3;
+    case c4:
+      return C4;
+    case c5:
+      return C5;
+    case c6:
+      return C6;
+    case c7:
+      return C7;
+    case c8:
+      return C8;
+    case c9:
+      return C9;
+    case c10:
+      return C10;
+    case cj:
+      return CJ;
+    case cq:
+      return CQ;
+    case ck:
+      return CK;
 
-    case sa:
-      return SA;
-    case s2:
-      return S2;
-    case s3:
-      return S3;
-    case s4:
-      return S4;
-    case s5:
-      return S5;
-    case s6:
-      return S6;
-    case s7:
-      return S7;
-    case s8:
-      return S8;
-    case s9:
-      return S9;
-    case s10:
-      return S10;
-    case sj:
-      return SJ;
-    case sq:
-      return SQ;
-    case sk:
-      return SK;
+    case da:
+      return DA;
+    case d2:
+      return D2;
+    case d3:
+      return D3;
+    case d4:
+      return D4;
+    case d5:
+      return D5;
+    case d6:
+      return D6;
+    case d7:
+      return D7;
+    case d8:
+      return D8;
+    case d9:
+      return D9;
+    case d10:
+      return D10;
+    case dj:
+      return DJ;
+    case dq:
+      return DQ;
+    case dk:
+      return DK;
 
-    case sa:
-      return SA;
-    case s2:
-      return S2;
-    case s3:
-      return S3;
-    case s4:
-      return S4;
-    case s5:
-      return S5;
-    case s6:
-      return S6;
-    case s7:
-      return S7;
-    case s8:
-      return S8;
-    case s9:
-      return S9;
-    case s10:
-      return S10;
-    case sj:
-      return SJ;
-    case sq:
-      return SQ;
-    case sk:
-      return SK;
+    case ha:
+      return HA;
+    case h2:
+      return H2;
+    case h3:
+      return H3;
+    case h4:
+      return H4;
+    case h5:
+      return H5;
+    case h6:
+      return H6;
+    case h7:
+      return H7;
+    case h8:
+      return H8;
+    case h9:
+      return H9;
+    case h10:
+      return H10;
+    case hj:
+      return HJ;
+    case hq:
+      return HQ;
+    case hk:
+      return HK;
   }
 }
 
-function Card() {
-  return {};
+function Card({ id }) {
+  useEffect(() => {
+    var card = document.querySelector(".card");
+    card.addEventListener("click", function () {
+      card.classList.toggle("is-flipped");
+    });
+  }, []);
+
+  return (
+    <div className="scene scene--card">
+      <div className="card">
+        <div className=" card__face cardFront">
+          <img src={getCard(id)} className="cardSize" />
+        </div>
+        <div className="card__face cardBack">
+          <img src={cardBackSvg} className="cardSize" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Card;
