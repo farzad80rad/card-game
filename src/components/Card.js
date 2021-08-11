@@ -224,6 +224,9 @@ function getCard(id) {
       return HQ;
     case hk:
       return HK;
+
+    default:
+      return <div>not found</div>;
   }
 }
 
@@ -241,10 +244,20 @@ function Card({ id }) {
     <div className="scene scene--card">
       <div className="card">
         <div className=" card__face cardFront">
-          <img src={getCard(id)} className="cardSize" />
+          <img
+            src={getCard(id)}
+            style={{ boxShadow: " -2px 1px 4px -1px black" }}
+            className="cardSize"
+            alt="card front "
+          />
         </div>
         <div className="card__face cardBack">
-          <img src={cardBackSvg} className="cardSize" />
+          <img
+            src={cardBackSvg}
+            style={{ boxShadow: " -2px 1px 4px -1px black" }}
+            className="cardSize"
+            alt="card back "
+          />
         </div>
       </div>
     </div>

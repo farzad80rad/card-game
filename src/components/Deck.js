@@ -6,7 +6,7 @@ function makeCard() {
   return (id) => {
     dis += 50;
     return (
-      <li className="deckCard" style={{ left: "" + dis + "px" }}>
+      <li key={id} className="deckCard" style={{ left: "" + dis + "px" }}>
         <Card id={id} />
       </li>
     );

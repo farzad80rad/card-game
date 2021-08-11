@@ -1,11 +1,11 @@
-import Deck from "./components/Deck";
-import "./App.css";
+import Table from "./components/Table";
 
 function App() {
+  let decks = [["h2", "h4", "c4", "s6", "sq"]];
   return (
-    <div className="App">
-      <header className="App-header">
-        <Deck cardsId={["h2", "h4", "c4", "s6", "sq"]} />
+    <div>
+      <header>
+        <Table decks={decks} />
       </header>
     </div>
   );
