@@ -59,7 +59,7 @@ import SJ from "../assets/S/J.svg";
 import SQ from "../assets/S/Q.svg";
 import SK from "../assets/S/K.svg";
 
-const ca = "c1";
+const ca = "ca";
 const c2 = "c2";
 const c3 = "c3";
 const c4 = "c4";
@@ -73,7 +73,7 @@ const cj = "cj";
 const cq = "cq";
 const ck = "ck";
 
-const da = "d1";
+const da = "da";
 const d2 = "d2";
 const d3 = "d3";
 const d4 = "d4";
@@ -87,7 +87,7 @@ const dj = "dj";
 const dq = "dq";
 const dk = "dk";
 
-const ha = "h1";
+const ha = "ha";
 const h2 = "h2";
 const h3 = "h3";
 const h4 = "h4";
@@ -101,7 +101,7 @@ const hj = "hj";
 const hq = "hq";
 const hk = "hk";
 
-const sa = "s1";
+const sa = "sa";
 const s2 = "s2";
 const s3 = "s3";
 const s4 = "s4";

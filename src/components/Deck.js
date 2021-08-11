@@ -2,9 +2,9 @@ import Card from "./Card";
 import "../styles/deck.css";
 
 function makeCard() {
-  let dis = -50;
+  let dis = -35;
   return (id) => {
-    dis += 50;
+    dis += 35;
     return (
       <li key={id} className="deckCard" style={{ left: "" + dis + "px" }}>
         <Card id={id} />

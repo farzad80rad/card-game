@@ -1,6 +1,26 @@
 .table {
-  background-color: black;
+  position: relative;
+  display: grid;
+  grid-template: repeat(25, 1fr) / repeat(30, 1fr);
   height: 100vh;
   width: 100vw;
   background-image: url("../assets/tableBackGround.jpg");
+}
+
+.selfDeck {
+  grid-area: 20 / 6;
+}
+
+.topDeck {
+  grid-area: 2 / 6;
+}
+
+.leftDeck {
+  transform: rotate(90deg) scale(0.93);
+  grid-area: 5 / 4;
+}
+
+.rightDeck {
+  transform: rotate(-90deg) scale(0.93);
+  grid-area: 21 / 19;
 }

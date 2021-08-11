@@ -10,9 +10,10 @@
   cursor: pointer;
   position: relative;
 }
+
 .cardSize {
-  width: 100px;
-  height: 150px;
+  width: 83px;
+  height: 130px;
 }
 
 .card.is-flipped {
