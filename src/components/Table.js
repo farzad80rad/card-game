@@ -1,9 +1,18 @@
 import Deck from "./Deck";
 import "../styles/table.css";
+import React, { useEffect } from "react";
 
 function Table({ decks }) {
-  console.log(decks);
-  console.log(decks[0]);
+  useEffect(() => {
+    var cards = document.querySelectorAll(".selfDeck .card");
+    cards.forEach((card) => {
+      card.classList.add("is-flipped");
+      card.addEventListener("dblclick", function () {
+        card.classList.toggle("is-flipped");
+      });
+    });
+  }, []);
+
   return (
     <section className="table">
       <div className="selfDeck">

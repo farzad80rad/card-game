@@ -1,5 +1,4 @@
 import "../styles/card.css";
-import React, { useEffect } from "react";
 
 import cardBackSvg from "../assets/Card_back_01.svg";
 
@@ -231,19 +230,10 @@ function getCard(id) {
 }
 
 function Card({ id }) {
-  useEffect(() => {
-    var cards = document.querySelectorAll(".card");
-    cards.forEach((card) => {
-      card.addEventListener("click", function () {
-        card.classList.toggle("is-flipped");
-      });
-    }, []);
-  });
-
   return (
     <div className="scene scene--card">
       <div className="card">
-        <div className=" card__face cardFront">
+        <div className=" card__face cardBack">
           <img
             src={getCard(id)}
             style={{ boxShadow: " -2px 1px 4px -1px black" }}
@@ -251,7 +241,7 @@ function Card({ id }) {
             alt="card front "
           />
         </div>
-        <div className="card__face cardBack">
+        <div className="card__face  cardFront ">
           <img
             src={cardBackSvg}
             style={{ boxShadow: " -2px 1px 4px -1px black" }}

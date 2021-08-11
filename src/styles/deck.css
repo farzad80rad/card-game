@@ -9,6 +9,7 @@
   transition: transform 0.2s ease-out;
 }
 
-.deckCard:hover {
+.selfDeck .deckCard:hover {
   transform: translate(0px, -10px);
+  cursor: pointer;
 }
