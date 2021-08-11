@@ -1,22 +1,11 @@
-import Card from "./components/Card";
+import Deck from "./components/Deck";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Card id="c2" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Deck cardsId={["h2", "h4", "c4", "s6", "sq"]} />
       </header>
     </div>
   );

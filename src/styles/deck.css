@@ -1,0 +1,13 @@
+.deck {
+  position: relative;
+}
+
+.deckCard {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.deckCard:hover {
+  transform: translate(0px, -10px);
+}
