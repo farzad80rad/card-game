@@ -12,9 +12,11 @@ function Deck({ cardsId, direction }) {
   function makeCard() {
     let dis = -35;
     return (id) => {
+      let newCard;
       dis += 35;
+
       if (direction === horizontal)
-        return (
+        newCard = (
           <li
             onDoubleClick={() => remove(id)}
             key={id}
@@ -25,7 +27,7 @@ function Deck({ cardsId, direction }) {
           </li>
         );
       else
-        return (
+        newCard = (
           <li
             key={id}
             className="deckCard"
@@ -34,8 +36,12 @@ function Deck({ cardsId, direction }) {
             <Card style={{ transform: `rotate( 90deg) ` }} id={id} />
           </li>
         );
+
+      return newCard;
     };
   }
+
+  function playCard() {}
 
   function remove(id) {
     const index = deck.indexOf(id);

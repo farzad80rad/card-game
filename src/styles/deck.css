@@ -6,7 +6,7 @@
 .deckCard {
   position: relative;
   display: inline-block;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, left 0.65s;
 }
 
 .selfDeck .deckCard:hover {
