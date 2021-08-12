@@ -232,7 +232,7 @@ function getCard(id) {
 function Card({ id }) {
   return (
     <div className="scene scene--card">
-      <div cardid={id} className="card">
+      <div className="card">
         <div className=" card__face cardBack">
           <img
             src={getCard(id)}

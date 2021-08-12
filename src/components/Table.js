@@ -14,16 +14,16 @@ function Table({ decks }) {
     <section className="table">
       <div className="topLine">
         <div className="topDeck">
-          <Deck cardsId={decks[0]} direction={horizontal} />
+          <Deck cardsId={decks[1]} direction={horizontal} />
         </div>
       </div>
 
       <div className="midLine">
         <div className="leftDeck ">
-          <Deck cardsId={decks[0]} direction={vertical} />
+          <Deck cardsId={decks[1]} direction={vertical} />
         </div>
         <div className="rightDeck">
-          <Deck cardsId={decks[0]} direction={vertical} />
+          <Deck cardsId={decks[1]} direction={vertical} />
         </div>
       </div>
 
