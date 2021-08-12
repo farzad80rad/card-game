@@ -30,10 +30,10 @@ function Deck({ cardsId, direction }) {
         newCard = (
           <li
             key={id}
-            className="deckCard"
+            className="deckCard rotate90"
             style={{ top: "" + dis * (3 / 4) + "px" }}
           >
-            <Card style={{ transform: `rotate( 90deg) ` }} id={id} />
+            <Card id={id} />
           </li>
         );
 
