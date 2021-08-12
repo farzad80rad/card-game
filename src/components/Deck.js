@@ -18,7 +18,7 @@ function Deck({ cardsId, direction }) {
       if (direction === horizontal)
         newCard = (
           <li
-            onDoubleClick={() => remove(id)}
+            onClick={() => remove(id)}
             key={id}
             className="deckCard"
             style={{ left: "" + dis + "px" }}
