@@ -1,4 +1,4 @@
-import Deck from "./Deck";
+import Deck, { horizontal, vertical } from "./Deck";
 import "../styles/table.css";
 import React, { useEffect } from "react";
 
@@ -7,26 +7,36 @@ function Table({ decks }) {
     var cards = document.querySelectorAll(".selfDeck .card");
     cards.forEach((card) => {
       card.classList.add("is-flipped");
-      card.addEventListener("dblclick", function () {
-        card.classList.toggle("is-flipped");
-      });
     });
   }, []);
 
   return (
     <section className="table">
-      <div className="selfDeck">
-        <Deck cardsId={decks[0]} />
+      <div className="topLine">
+        <div className="topDeck">
+          <Deck cardsId={decks[0]} direction={horizontal} />
+        </div>
       </div>
-      <div className="rightDeck">
-        <Deck cardsId={decks[0]} />
+
+      <div className="midLine">
+        <div className="leftDeck ">
+          <Deck cardsId={decks[0]} direction={vertical} />
+        </div>
+        <div className="rightDeck">
+          <Deck cardsId={decks[0]} direction={vertical} />
+        </div>
       </div>
-      <div className="topDeck">
-        <Deck cardsId={decks[0]} />
+
+      <div></div>
+      <div></div>
+
+      <div className="botLine">
+        <div className="selfDeck">
+          <Deck cardsId={decks[0]} direction={horizontal} />
+        </div>
       </div>
-      <div className="leftDeck">
-        <Deck cardsId={decks[0]} />
-      </div>
+
+      <div></div>
     </section>
   );
 }
