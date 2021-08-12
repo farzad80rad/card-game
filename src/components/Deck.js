@@ -1,6 +1,6 @@
 import Card from "./Card";
 import "../styles/deck.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const horizontal = "h";
 const vertical = "v";
@@ -30,8 +30,22 @@ function makeCard(direct) {
 
 function Deck({ cardsId, direction }) {
   const [deck, setDeck] = useState([...cardsId]);
-
   let cardMaker = makeCard(direction);
+
+  useEffect(() => {
+    var cards = document.querySelectorAll(".selfDeck .card");
+    cards.forEach((card) => {
+      card.addEventListener("dblclick", () => {
+        card.classList.add("is-flipped");
+        const index = deck.indexOf(card.getAttribute("cardid"));
+        let array = [...deck];
+        if (index > -1) {
+          array.splice(index, 1);
+        }
+        setDeck(array);
+      });
+    });
+  }, [deck]);
 
   return <ul className="deck"> {deck.map((id) => cardMaker(id))}</ul>;
 }
