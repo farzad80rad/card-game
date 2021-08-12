@@ -1,4 +1,6 @@
+import InfoPanel from "./components/InfoPanel";
 import Table from "./components/Table";
+import "./styles/app.css";
 
 function App() {
   let decks = [
@@ -19,10 +21,13 @@ function App() {
     ],
   ];
   return (
-    <div>
-      <header>
+    <div className="appBody">
+      <div className="tablePan">
         <Table decks={decks} />
-      </header>
+      </div>
+      <div className="infoPan">
+        <InfoPanel />
+      </div>
     </div>
   );
 }
