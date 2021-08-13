@@ -14,29 +14,29 @@ function Table({ decks }) {
     <section id="table" className="table">
       <div className="topLine">
         <div className="topDeck">
+          <div>top player</div>
           <Deck cardsId={decks[1]} direction={top} />
         </div>
       </div>
 
       <div className="midLine">
         <div className="leftDeck ">
+          <div>left player</div>
           <Deck cardsId={decks[1]} direction={left} />
         </div>
         <div className="rightDeck">
+          <div>right player</div>
+
           <Deck cardsId={decks[1]} direction={right} />
         </div>
       </div>
 
-      <div></div>
-      <div></div>
-
       <div className="botLine">
         <div className="selfDeck">
           <Deck cardsId={decks[0]} direction={bot} />
+          <div>self player</div>
         </div>
       </div>
-
-      <div></div>
     </section>
   );
 }

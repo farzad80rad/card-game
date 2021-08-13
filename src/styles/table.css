@@ -16,6 +16,7 @@
 
 .midLine {
   display: flex;
+  height: 40%;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -24,6 +25,7 @@
   display: flex;
   justify-content: flex-start;
   margin-left: 30%;
+  padding-bottom: 10%;
 }
 
 .selfDeck {
@@ -33,7 +35,13 @@
 }
 
 .leftDeck {
-  margin-left: 20%;
+  color: whitesmoke;
+  display: flex;
+  height: 100%;
+  width: 30%;
+  justify-content: space-around;
+  flex-direction: row;
+  align-content: center;
 }
 
 .rightDeck {
