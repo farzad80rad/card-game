@@ -5,8 +5,10 @@
 .card {
   width: 100%;
   height: 100%;
-  transition: transform 1s;
+  transition: transform 0.5s;
   transform-style: preserve-3d;
+  transform-origin: center;
+
   position: relative;
 }
 
@@ -17,6 +19,7 @@
 
 .card.is-flipped {
   transform: rotateY(180deg);
+  transform-origin: center;
 }
 
 .card__face {
@@ -33,4 +36,5 @@
 
 .cardBack {
   transform: rotateY(180deg);
+  transform-origin: center;
 }

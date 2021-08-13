@@ -20,5 +20,7 @@
 
 .playableCard {
   position: fixed;
-  transition: left 0.5s ease-out, top 0.5s ease-out;
+  width: 100px;
+  height: 100px;
+  transition: left 0.5s ease-out, top 0.5s ease-out, transform 0.5s;
 }
