@@ -34,3 +34,8 @@
   transform: rotate(90deg);
   transform-origin: center;
 }
+
+.topDeck .playerInfoDiv {
+  max-width: 25%;
+  margin-left: 15%;
+}
