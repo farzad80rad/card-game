@@ -1,6 +1,7 @@
 import Deck, { top, right, left, bot } from "./Deck";
 import "../styles/table.css";
 import React, { useEffect } from "react";
+import PlayerInfo from "./PlayerInfo";
 
 function Table({ decks }) {
   useEffect(() => {
@@ -14,18 +15,18 @@ function Table({ decks }) {
     <section id="table" className="table">
       <div className="topLine">
         <div className="topDeck">
-          <div>top player</div>
+          <PlayerInfo name="top player" />
           <Deck cardsId={decks[1]} direction={top} />
         </div>
       </div>
 
       <div className="midLine">
         <div className="leftDeck ">
-          <div>left player</div>
+          <PlayerInfo name="left player" />
           <Deck cardsId={decks[1]} direction={left} />
         </div>
         <div className="rightDeck">
-          <div>right player</div>
+          <PlayerInfo name="right player" />
 
           <Deck cardsId={decks[1]} direction={right} />
         </div>
@@ -34,7 +35,7 @@ function Table({ decks }) {
       <div className="botLine">
         <div className="selfDeck">
           <Deck cardsId={decks[0]} direction={bot} />
-          <div>self player</div>
+          <PlayerInfo name="self player" />
         </div>
       </div>
     </section>

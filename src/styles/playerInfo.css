@@ -1,0 +1,36 @@
+.playerInfoDiv {
+  display: flex;
+  /* align-content: stretch; */
+  justify-content: space-evenly;
+  text-align: center;
+  align-items: center;
+  flex-direction: row;
+  border: 1px solid gray;
+  background-color: white;
+  border-radius: 5px;
+  height: 70px;
+}
+
+.playerImg {
+  width: 60px;
+  height: 60px;
+  padding: 0 10px;
+  border-radius: 50%;
+}
+
+.playerName {
+  padding: 10px;
+  color: black;
+}
+
+.leftDeck .playerInfoDiv {
+  margin-top: 5%;
+
+  transform: rotate(-90deg);
+  transform-origin: center;
+  align-self: center;
+}
+.rightDeck .playerInfoDiv {
+  transform: rotate(90deg);
+  transform-origin: center;
+}
