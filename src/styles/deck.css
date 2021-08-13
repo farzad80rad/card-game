@@ -18,11 +18,7 @@
   transform: rotate(90deg);
 }
 
-.playedCardb {
+.playableCard {
   position: fixed;
-  transition: transform 0.5s ease-out;
-}
-
-.translateTop {
-  transform: translateY(-100px);
+  transition: left 0.5s ease-out, top 0.5s ease-out;
 }

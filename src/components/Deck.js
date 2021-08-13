@@ -12,18 +12,40 @@ function Deck({ cardsId, direction }) {
   let cardMaker = makeCard();
 
   function playCard(el, id) {
-    const tableRect = document.getElementById("table").getBoundingClientRect();
-    const selfDeck = document.getElementById(bot + "Deck");
-
-    el.classList.add("playedCard" + direction);
+    console.log(el);
+    console.log(el.parentElement.parentElement);
+    const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
-    el.style.left = rect.left + "px";
-    el.style.top = rect.y + "px";
-    selfDeck.appendChild(el);
+    let newCard = el.parentElement.parentElement;
+    newCard.classList.add("playableCard");
+    newCard.style.left = rect.left + "px";
+    newCard.style.top = rect.y + "px";
+    selfDeck.appendChild(newCard);
     setTimeout(() => {
-      el.style.transform = `translate(${tableRect.width / 2 - rect.left}px , ${
-        tableRect.height / 2 - rect.top
-      }px)`;
+      console.log(newCard);
+      switch (direction) {
+        case bot:
+          newCard.style.left = "38%";
+          newCard.style.top = "55%";
+          break;
+
+        case left:
+          newCard.style.left = "31%";
+          newCard.style.top = "42%";
+          newCard.classList.toggle("is-flipped");
+          break;
+
+        case top:
+          newCard.style.left = "38%";
+          newCard.style.top = "30%";
+          newCard.classList.toggle("is-flipped");
+          break;
+
+        case right:
+          newCard.style.left = "45%";
+          newCard.style.top = "42%";
+          newCard.classList.toggle("is-flipped");
+      }
     }, 50);
     remove(id);
   }
@@ -50,6 +72,9 @@ function Deck({ cardsId, direction }) {
       else
         newCard = (
           <li
+            onClick={(el) => {
+              playCard(el.target, id);
+            }}
             key={id}
             className="deckCard rotate90"
             style={{ top: "" + dis * (3 / 4) + "px" }}

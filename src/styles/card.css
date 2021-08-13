@@ -29,11 +29,8 @@
 }
 
 .cardFront {
-  box-shadow: -5px -10px 10px red;
 }
 
 .cardBack {
-  box-shadow: -5px -10px 10px red;
-
   transform: rotateY(180deg);
 }
