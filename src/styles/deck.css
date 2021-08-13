@@ -17,3 +17,12 @@
 .rotate90 {
   transform: rotate(90deg);
 }
+
+.playedCardb {
+  position: fixed;
+  transition: transform 0.5s ease-out;
+}
+
+.translateTop {
+  transform: translateY(-100px);
+}

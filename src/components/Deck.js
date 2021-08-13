@@ -2,12 +2,31 @@ import Card from "./Card";
 import "../styles/deck.css";
 import React, { useState, useEffect } from "react";
 
-const horizontal = "h";
-const vertical = "v";
+const top = "t";
+const left = "l";
+const bot = "b";
+const right = "r";
 
 function Deck({ cardsId, direction }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
+
+  function playCard(el, id) {
+    const tableRect = document.getElementById("table").getBoundingClientRect();
+    const selfDeck = document.getElementById(bot + "Deck");
+
+    el.classList.add("playedCard" + direction);
+    const rect = el.getBoundingClientRect();
+    el.style.left = rect.left + "px";
+    el.style.top = rect.y + "px";
+    selfDeck.appendChild(el);
+    setTimeout(() => {
+      el.style.transform = `translate(${tableRect.width / 2 - rect.left}px , ${
+        tableRect.height / 2 - rect.top
+      }px)`;
+    }, 50);
+    remove(id);
+  }
 
   function makeCard() {
     let dis = -35;
@@ -15,10 +34,12 @@ function Deck({ cardsId, direction }) {
       let newCard;
       dis += 35;
 
-      if (direction === horizontal)
+      if (direction === top || direction == bot)
         newCard = (
           <li
-            onClick={() => remove(id)}
+            onClick={(el) => {
+              playCard(el.target, id);
+            }}
             key={id}
             className="deckCard"
             style={{ left: "" + dis + "px" }}
@@ -41,8 +62,6 @@ function Deck({ cardsId, direction }) {
     };
   }
 
-  function playCard() {}
-
   function remove(id) {
     const index = deck.indexOf(id);
     let array = [...deck];
@@ -52,8 +71,12 @@ function Deck({ cardsId, direction }) {
     setDeck(array);
   }
 
-  return <ul className="deck"> {deck.map((id) => cardMaker(id))}</ul>;
+  return (
+    <ul className="deck" id={direction + "Deck"}>
+      {deck.map((id) => cardMaker(id))}
+    </ul>
+  );
 }
 
 export default Deck;
-export { horizontal, vertical };
+export { bot, top, right, left };

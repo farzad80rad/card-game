@@ -1,4 +1,4 @@
-import Deck, { horizontal, vertical } from "./Deck";
+import Deck, { top, right, left, bot } from "./Deck";
 import "../styles/table.css";
 import React, { useEffect } from "react";
 
@@ -11,19 +11,19 @@ function Table({ decks }) {
   }, []);
 
   return (
-    <section className="table">
+    <section id="table" className="table">
       <div className="topLine">
         <div className="topDeck">
-          <Deck cardsId={decks[1]} direction={horizontal} />
+          <Deck cardsId={decks[1]} direction={top} />
         </div>
       </div>
 
       <div className="midLine">
         <div className="leftDeck ">
-          <Deck cardsId={decks[1]} direction={vertical} />
+          <Deck cardsId={decks[1]} direction={left} />
         </div>
         <div className="rightDeck">
-          <Deck cardsId={decks[1]} direction={vertical} />
+          <Deck cardsId={decks[1]} direction={right} />
         </div>
       </div>
 
@@ -32,7 +32,7 @@ function Table({ decks }) {
 
       <div className="botLine">
         <div className="selfDeck">
-          <Deck cardsId={decks[0]} direction={horizontal} />
+          <Deck cardsId={decks[0]} direction={bot} />
         </div>
       </div>
 
