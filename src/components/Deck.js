@@ -12,8 +12,6 @@ function Deck({ cardsId, direction }) {
   let cardMaker = makeCard();
 
   function playCard(el, id) {
-    console.log(el);
-    console.log(el.parentElement.parentElement);
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
     let newCard = el.parentElement.parentElement;
@@ -97,7 +95,10 @@ function Deck({ cardsId, direction }) {
   }
 
   return (
-    <ul className="deck" id={direction + "Deck"}>
+    <ul
+      className={"deck" + (direction === top || direction === bot ? "h" : "v")}
+      id={direction + "Deck"}
+    >
       {deck.map((id) => cardMaker(id))}
     </ul>
   );

@@ -1,5 +1,12 @@
-.deck {
+.deckv {
   position: relative;
+  margin: 0px;
+}
+
+.deckh {
+  position: relative;
+  width: 60%;
+  padding: 0px;
   margin: 0px;
 }
 

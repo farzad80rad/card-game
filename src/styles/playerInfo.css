@@ -30,12 +30,18 @@
   transform-origin: center;
   align-self: center;
 }
-.rightDeck .playerInfoDiv {
+.rightlinePlayer .playerInfoDiv {
   transform: rotate(90deg);
   transform-origin: center;
+  align-self: center;
 }
 
 .topDeck .playerInfoDiv {
+  max-width: 25%;
+  margin-left: 15%;
+}
+.selfDeck .playerInfoDiv {
+  padding-top: 10%;
   max-width: 25%;
   margin-left: 15%;
 }
