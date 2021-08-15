@@ -1,4 +1,4 @@
-package Ai
+package Player
 
 import "math/rand"
 

@@ -1,4 +1,4 @@
-package Game
+package card
 
 const( Ca = "ca";
 	C2 = "c2";
