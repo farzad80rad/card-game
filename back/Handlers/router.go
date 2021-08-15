@@ -9,13 +9,11 @@ func tempHanderl(c *gin.Context) {
 	c.String(http.StatusOK, "Hello world" )
 }
 
-func Start(){
+func InitRouter(){
 	router := gin.Default()
-	router.GET("/someGet", tempHanderl)
-	router.POST("/somePost", tempHanderl)
-	router.PUT("/somePut", tempHanderl)
-	router.DELETE("/someDelete", tempHanderl)
-	router.PATCH("/somePatch", tempHanderl)
-	router.HEAD("/someHead", tempHanderl)
-	router.OPTIONS("/someOptions", tempHanderl)
+	hokm := router.Group("/hokm")
+	{
+		hokm.POST("/hokm/enter", tempHanderl)
+	}
+
 }
