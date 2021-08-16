@@ -20,7 +20,6 @@ function Deck({ cardsId, direction }) {
     newCard.style.top = rect.y + "px";
     selfDeck.appendChild(newCard);
     setTimeout(() => {
-      console.log(newCard);
       switch (direction) {
         case bot:
           newCard.style.left = "38%";

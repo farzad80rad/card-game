@@ -3,7 +3,7 @@ import "../styles/table.css";
 import React, { useEffect } from "react";
 import PlayerInfo from "./PlayerInfo";
 
-function Table({ decks }) {
+function Table({ users }) {
   useEffect(() => {
     var cards = document.querySelectorAll(".selfDeck .card");
     cards.forEach((card) => {
@@ -15,21 +15,21 @@ function Table({ decks }) {
     <section id="table" className="table">
       <div className="topLine">
         <div className="toplinePlayer">
-          <PlayerInfo name="top player" />
+          <PlayerInfo name={users[2].name} />
         </div>
         <div className="topDeck">
-          <Deck cardsId={decks[1]} direction={top} />
+          <Deck cardsId={users[2].deck} direction={top} />
         </div>
       </div>
 
       <div className="midLine">
         <div className="leftDeck ">
-          <PlayerInfo name="left player" />
-          <Deck cardsId={decks[1]} direction={left} />
+          <PlayerInfo name={users[1].name} />
+          <Deck cardsId={users[1].deck} direction={left} />
         </div>
         <div className="rightDeckPlayer">
-          <div className="rightDeck">
-            <Deck cardsId={decks[1]} direction={right} />
+          <div className={users[3].name}>
+            <Deck cardsId={users[3].deck} direction={right} />
           </div>
           <div className="rightlinePlayer">
             <PlayerInfo name="right player" />
@@ -39,10 +39,10 @@ function Table({ decks }) {
 
       <div className="botLine">
         <div className="selfDeck">
-          <Deck cardsId={decks[0]} direction={bot} />
+          <Deck cardsId={users[0].deck} direction={bot} />
         </div>
         <div className="selfDeckPlayer">
-          <PlayerInfo name="self player" />
+          <PlayerInfo name={users[0].name} />
         </div>
       </div>
     </section>

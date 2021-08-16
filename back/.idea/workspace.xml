@@ -3,11 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="431367e4-9d7f-4b16-9890-159bcb07e350" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ai/bot.go" beforeDir="false" afterPath="$PROJECT_DIR$/Player/bot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ai/stupidAi.go" beforeDir="false" afterPath="$PROJECT_DIR$/Player/stupidAi.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back.go" beforeDir="false" afterPath="$PROJECT_DIR$/back.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Handlers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Handlers/sys.go" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/sys.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player/bot.go" beforeDir="false" afterPath="$PROJECT_DIR$/Player/bot.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player/stupidAi.go" beforeDir="false" afterPath="$PROJECT_DIR$/Player/stupidAi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/card/cards.go" beforeDir="false" afterPath="$PROJECT_DIR$/card/cards.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/Deck.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Deck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../front/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +55,12 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ghanari/goServer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\Go\src\github.com\farzad80rad\cards\back\card" />
       <recent name="H:\Go\src\github.com\farzad80rad\cards\back\Player" />
     </key>
   </component>
@@ -88,6 +94,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
