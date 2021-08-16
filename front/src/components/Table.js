@@ -28,11 +28,11 @@ function Table({ users }) {
           <Deck cardsId={users[1].deck} direction={left} />
         </div>
         <div className="rightDeckPlayer">
-          <div className={users[3].name}>
+          <div className="rightDeck">
             <Deck cardsId={users[3].deck} direction={right} />
           </div>
           <div className="rightlinePlayer">
-            <PlayerInfo name="right player" />
+            <PlayerInfo name={users[3].name} />
           </div>
         </div>
       </div>

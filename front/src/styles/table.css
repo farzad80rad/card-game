@@ -71,8 +71,9 @@
 
 .rightDeckPlayer {
   padding-right: 6%;
-  display: grid;
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .toplinePlayer {
