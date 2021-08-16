@@ -31,7 +31,6 @@ func putCardHandler_B(c *gin.Context){
 	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(&Player.PLayerInfo{}){
 		groupInfo.Group.NewCardToPlay = req.CardToPut
 		groupInfo.Group.BotGroupCond.Signal()
-		fmt.Println("truuuuuuuuuuuuuuuuuue")
 		c.JSON(http.StatusOK , gin.H{"status": true } )
 	}else{
 		c.JSON(http.StatusOK , gin.H{"status": false } )
@@ -65,6 +64,19 @@ func startGame_B(gameInfo *BotGameInfo){
 		fmt.Println("index: " , gameInfo.CurrentPlayerIndex , "  onbouard" , gameInfo.OnBoardCards)
 
 		if len(gameInfo.OnBoardCards) >= 4 {
+			var max = "s2";
+			var maxIndex = 0;
+			for index , value := range gameInfo.OnBoardCards {
+				compaerRes := card.Compare(max,value,gameInfo.OnBoardCards[0][:1],"h")
+				fmt.Println(compaerRes)
+				if (compaerRes < 0){
+					maxIndex = index;
+					max = value;
+				}
+			}
+			gameInfo.CurrentPlayerIndex = (gameInfo.CurrentPlayerIndex + 1) % 4;
+			gameInfo.CurrentPlayerIndex += maxIndex-1 ;
+
 			gameInfo.OnBoardCards = make([]string,0)
 		}
 	}

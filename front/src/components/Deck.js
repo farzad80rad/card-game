@@ -14,9 +14,7 @@ function Deck({ cardsId, direction, userId }) {
 
   async function playCard(el, id) {
     console.log(id);
-    let res = await putCard(userId, id);
-    if (!res) {
-      console.log("fffffffffffffffffffffffffffffff");
+    if (!(await putCard(userId, id))) {
       return;
     }
     const selfDeck = document.getElementById(direction + "Deck");

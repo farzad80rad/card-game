@@ -1,7 +1,9 @@
 package card
 
 import (
+	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -73,4 +75,64 @@ func GetCardsSuffuledArray() []string{
 		newDeck[i], newDeck[j] = newDeck[j], newDeck[i]
 	})
 	return newDeck
+}
+
+func Compare(card1 , card2, playingCard , hokm string) int{
+	fmt.Println("compare " , card1, " and ", card2, " playing card is ", playingCard , "hokm is ", hokm)
+	if (strings.HasPrefix(card1,playingCard) && strings.HasPrefix(card2,playingCard)){
+		return compareChars(card1[1:],card2[1:]);
+	}
+	if (strings.HasPrefix(card1,hokm) && strings.HasPrefix(card2,hokm)){
+		return compareChars(card1[1:],card2[1:]);
+	}
+	if ( strings.HasPrefix(card2,hokm)){
+		return -1;
+	}
+	if (strings.HasPrefix(card1,hokm)){
+		return 1;
+	}
+	if (strings.HasPrefix(card2,playingCard)){
+		return -1;
+	}
+	if (strings.HasPrefix(card1,playingCard)){
+		return 1;
+	}
+	return 0;
+}
+
+func compareChars(type1 , type2 string) int{
+	switch  {
+	case type1 == type2:
+		return 0;
+		break;
+	case type1 == "a":
+		return 1;
+		break;
+	case type2 == "a":
+		return -1;
+		break;
+	case type1 == "k":
+		return 1;
+		break;
+	case type2 == "k":
+		return -1;
+		break;
+	case type1 == "q":
+		return 1;
+		break;
+	case type2 == "q":
+		return -1;
+		break;
+	case type1 == "j":
+		return 1;
+		break;
+	case type2 == "j":
+		return -1;
+		break;
+	default:
+		return strings.Compare(type1,type2);
+		break;
+	}
+	return 0
+
 }
