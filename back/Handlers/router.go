@@ -33,7 +33,8 @@ func Init() *gin.Engine{
 
 	hokm := router.Group("/hokm")
 	{
-		hokm.POST("/playWithBot", handelPlayWithBot)
+		hokm.POST("/playWithBot", initGame_B)
+		hokm.POST("/putCardBot", putCardHandler_B)
 		hokm.POST("/playNormal",tempHanderl)
 	}
 	return router

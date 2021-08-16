@@ -7,9 +7,69 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
+	"reflect"
+	"sync"
 )
 
-func handelPlayWithBot(c *gin.Context){
+type putCard struct {
+	Id uuid.UUID `json:"id" binding:"required"`
+	CardToPut string `json:"CardToPut" binding:"required"`;
+}
+
+func putCardHandler_B(c *gin.Context){
+	var req putCard;
+
+	err := c.ShouldBindJSON(&req);
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest,err)
+	}
+	fmt.Println("card to play " ,req.CardToPut);
+
+	groupInfo := botGameGroups[req.Id]
+	groupInfo.Group.NewCardToPlay = req.CardToPut
+	groupInfo.Group.BotGroupCond.Signal()
+	fmt.Println("singnal sent");
+	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(Player.PLayerInfo{}){
+		c.JSON(http.StatusOK , gin.H{"status": true } )
+	}else{
+		c.JSON(http.StatusOK , gin.H{"status": false } )
+	}
+
+}
+
+func startGame_B(gameInfo *BotGameInfo){
+	for gameInfo.CurrentPlayerIndex=0 ; ;gameInfo.CurrentPlayerIndex++ {
+		currentPlayer := gameInfo.Group.Players[gameInfo.CurrentPlayerIndex];
+		fmt.Println(reflect.TypeOf(currentPlayer));
+		fmt.Println(reflect.TypeOf(Player.PLayerInfo{}));
+		if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.BotInfo{}) {
+		 	cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards)
+			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
+
+		}else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}){
+			gameInfo.Group.BotGroupCond.L.Lock()
+			for gameInfo.Group.NewCardToPlay == "" {
+				gameInfo.Group.BotGroupCond.Wait()
+				fmt.Println("awaked")
+				fmt.Println(gameInfo.Group.NewCardToPlay);
+			}
+			gameInfo.Group.BotGroupCond.L.Unlock()
+			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
+			gameInfo.Group.NewCardToPlay = ""
+		}else{
+			fmt.Println("something wrong!")
+		}
+		fmt.Println("index: " , gameInfo.CurrentPlayerIndex , "  onbouard" , gameInfo.OnBoardCards)
+		if gameInfo.CurrentPlayerIndex % 4 == 3 {
+			gameInfo.OnBoardCards = make([]string, 0)
+			gameInfo.CurrentPlayerIndex=-1;
+		}
+	}
+}
+
+
+
+func initGame_B(c *gin.Context){
 	var newPlayer Player.PLayerInfo;
 	err := c.ShouldBindJSON(&newPlayer)
 
@@ -23,16 +83,23 @@ func handelPlayWithBot(c *gin.Context){
 	newPlayer.Deck = newTotaldeck[:13]
 	bots := makeNewBotGroup(newTotaldeck[13:])
 
+
 	var newBotGroup  BotGroup;
-	newBotGroup.Player = newPlayer;
-	newBotGroup.Bots = bots;
-	botGameGroups[newPlayer.Id] = newBotGroup
+	newBotGroup.BotGroupCond = sync.NewCond(&sync.Mutex{})
+	newBotGroup.Players = []Player.Player{ &newPlayer , &bots[0] ,&bots[1] ,&bots[2]  } ;
+
+
+	var botGroupToAdd BotGameInfo;
+	botGroupToAdd.CurrentPlayerIndex = 0;
+	botGroupToAdd.OnBoardCards = make([]string,0)
+	botGroupToAdd.Group = &newBotGroup
+
+	botGameGroups[newPlayer.Id] = &botGroupToAdd
 	c.JSON(http.StatusOK, gin.H{
 		"player": newPlayer,
 		"bots": bots,
 	})
-	fmt.Println(newPlayer)
-	fmt.Println(bots)
+	go startGame_B(&botGroupToAdd)
 	return
 }
 

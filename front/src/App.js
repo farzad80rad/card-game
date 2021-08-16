@@ -35,6 +35,7 @@ function App() {
           { name: users.bots[1].username, deck: users.bots[1].deck },
           { name: users.bots[2].username, deck: users.bots[2].deck },
         ]}
+        userId={users.player.id}
       />
     );
   }

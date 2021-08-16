@@ -3,7 +3,7 @@ import "../styles/table.css";
 import React, { useEffect } from "react";
 import PlayerInfo from "./PlayerInfo";
 
-function Table({ users }) {
+function Table({ users, userId }) {
   useEffect(() => {
     var cards = document.querySelectorAll(".selfDeck .card");
     cards.forEach((card) => {
@@ -39,7 +39,7 @@ function Table({ users }) {
 
       <div className="botLine">
         <div className="selfDeck">
-          <Deck cardsId={users[0].deck} direction={bot} />
+          <Deck userId={userId} cardsId={users[0].deck} direction={bot} />
         </div>
         <div className="selfDeckPlayer">
           <PlayerInfo name={users[0].name} />

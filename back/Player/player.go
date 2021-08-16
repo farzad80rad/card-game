@@ -12,3 +12,7 @@ type PLayerInfo struct  {
 	Deck []string `json:"deck" binding:"-"`;
 }
 
+func ( player *PLayerInfo) PlayCard (perviosCards []string) string {
+	return ""
+}
+

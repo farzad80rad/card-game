@@ -1,17 +1,20 @@
 import Card from "./Card";
 import "../styles/deck.css";
 import React, { useState, useEffect } from "react";
+import { putCard } from "../fetchingData/playCard";
 
 const top = "t";
 const left = "l";
 const bot = "b";
 const right = "r";
 
-function Deck({ cardsId, direction }) {
+function Deck({ cardsId, direction, userId }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
 
   function playCard(el, id) {
+    console.log(id);
+    if (!putCard(userId, id)) return;
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
     let newCard = el.parentElement.parentElement;
