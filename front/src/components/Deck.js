@@ -12,9 +12,13 @@ function Deck({ cardsId, direction, userId }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
 
-  function playCard(el, id) {
+  async function playCard(el, id) {
     console.log(id);
-    if (!putCard(userId, id)) return;
+    let res = await putCard(userId, id);
+    if (!res) {
+      console.log("fffffffffffffffffffffffffffffff");
+      return;
+    }
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
     let newCard = el.parentElement.parentElement;

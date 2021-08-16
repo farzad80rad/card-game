@@ -26,10 +26,12 @@ func putCardHandler_B(c *gin.Context){
 	fmt.Println("card to play " ,req.CardToPut);
 
 	groupInfo := botGameGroups[req.Id]
-	groupInfo.Group.NewCardToPlay = req.CardToPut
-	groupInfo.Group.BotGroupCond.Signal()
 	fmt.Println("singnal sent");
-	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(Player.PLayerInfo{}){
+	fmt.Println(groupInfo.CurrentPlayerIndex)
+	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(&Player.PLayerInfo{}){
+		groupInfo.Group.NewCardToPlay = req.CardToPut
+		groupInfo.Group.BotGroupCond.Signal()
+		fmt.Println("truuuuuuuuuuuuuuuuuue")
 		c.JSON(http.StatusOK , gin.H{"status": true } )
 	}else{
 		c.JSON(http.StatusOK , gin.H{"status": false } )
@@ -39,6 +41,7 @@ func putCardHandler_B(c *gin.Context){
 
 func startGame_B(gameInfo *BotGameInfo){
 	for gameInfo.CurrentPlayerIndex=0 ; ;gameInfo.CurrentPlayerIndex++ {
+		gameInfo.CurrentPlayerIndex = gameInfo.CurrentPlayerIndex % 4;
 		currentPlayer := gameInfo.Group.Players[gameInfo.CurrentPlayerIndex];
 		fmt.Println(reflect.TypeOf(currentPlayer));
 		fmt.Println(reflect.TypeOf(Player.PLayerInfo{}));
@@ -60,9 +63,9 @@ func startGame_B(gameInfo *BotGameInfo){
 			fmt.Println("something wrong!")
 		}
 		fmt.Println("index: " , gameInfo.CurrentPlayerIndex , "  onbouard" , gameInfo.OnBoardCards)
-		if gameInfo.CurrentPlayerIndex % 4 == 3 {
-			gameInfo.OnBoardCards = make([]string, 0)
-			gameInfo.CurrentPlayerIndex=-1;
+
+		if len(gameInfo.OnBoardCards) >= 4 {
+			gameInfo.OnBoardCards = make([]string,0)
 		}
 	}
 }
