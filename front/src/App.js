@@ -3,6 +3,7 @@ import Table from "./components/Table";
 import "./styles/app.css";
 import { useEffect, useState } from "react";
 import { getBeginingData } from "./fetchingData/begin";
+import { getSocket } from "./fetchingData/connectWebSoucket";
 
 function App() {
   const [users, setUser] = useState({
@@ -14,12 +15,15 @@ function App() {
     ],
   });
 
+  let socket;
+
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       let group = await getBeginingData("me");
       setUser(group);
+      socket = getSocket(group.player.id);
       setLoaded(true);
     }
     fetchData();

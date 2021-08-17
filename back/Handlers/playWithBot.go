@@ -6,18 +6,65 @@ import (
 	"github.com/farzad80rad/cards/back/card"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/gorilla/websocket"
+	"log"
 	"net/http"
 	"reflect"
 	"sync"
 )
 
-type putCard struct {
+type putCardInfo struct {
 	Id uuid.UUID `json:"id" binding:"required"`
 	CardToPut string `json:"CardToPut" binding:"required"`;
 }
 
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize: 1024,
+	WriteBufferSize: 1024,
+}
+
+func addNewWebSocket_B( w http.ResponseWriter , r * http.Request){
+		fmt.Println("enter to websocket ")
+		var playerInfo  Player.PLayerInfo
+		upgrader.CheckOrigin = func(r *http.Request) bool { return true}
+		conn , err := upgrader.Upgrade(w , r,nil)
+		fmt.Println("11111")
+		if err != nil {
+			fmt.Println("err:", err)
+			return
+		}
+		fmt.Println("1111")
+		err = conn.ReadJSON(&playerInfo)
+		fmt.Println("tsss")
+		if  err != nil{
+			fmt.Println("errr" , err)
+			return
+		}
+		fmt.Println("connnect to websocket ")
+
+
+	thisBotGameInfo := botGameGroups[playerInfo.Id]
+		for {
+			select {
+			case newPutInfo, valid := <- thisBotGameInfo.PutCardChan :
+				if !valid {
+					fmt.Println("closing socket and chan")
+					close(thisBotGameInfo.PutCardChan)
+					conn.Close()
+					return;
+				}
+				if err := conn.WriteJSON(newPutInfo) ; err != nil {
+					log.Println("errr:" , err)
+				}
+				fmt.Println("send message : " , newPutInfo );
+			}
+		}
+}
+
+
 func putCardHandler_B(c *gin.Context){
-	var req putCard;
+	var req putCardInfo;
 
 	err := c.ShouldBindJSON(&req);
 	if err != nil {
@@ -47,6 +94,7 @@ func startGame_B(gameInfo *BotGameInfo){
 		if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.BotInfo{}) {
 		 	cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards)
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
+			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay}
 
 		}else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}){
 			gameInfo.Group.BotGroupCond.L.Lock()
@@ -57,6 +105,7 @@ func startGame_B(gameInfo *BotGameInfo){
 			}
 			gameInfo.Group.BotGroupCond.L.Unlock()
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
+			gameInfo.PutCardChan <- putCardInfo{CardToPut: gameInfo.Group.NewCardToPlay}
 			gameInfo.Group.NewCardToPlay = ""
 		}else{
 			fmt.Println("something wrong!")
@@ -108,6 +157,7 @@ func initGame_B(c *gin.Context){
 	botGroupToAdd.CurrentPlayerIndex = 0;
 	botGroupToAdd.OnBoardCards = make([]string,0)
 	botGroupToAdd.Group = &newBotGroup
+	botGroupToAdd.PutCardChan = make(chan putCardInfo,1);
 
 	botGameGroups[newPlayer.Id] = &botGroupToAdd
 	c.JSON(http.StatusOK, gin.H{

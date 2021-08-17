@@ -14,7 +14,6 @@ async function putCard(userId, cardName) {
       },
     }
   );
-  console.log(res.data.status);
   return res.data.status;
 }
 
