@@ -23,8 +23,6 @@ func CORSMiddleware(c *gin.Context) {
 	c.Next()
 }
 
-
-
 func Init() *gin.Engine{
 	router := gin.Default()
 	initSys()

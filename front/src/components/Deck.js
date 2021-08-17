@@ -8,18 +8,28 @@ const left = "l";
 const bot = "b";
 const right = "r";
 
+let PlayCard;
+
 function Deck({ cardsId, direction, userId }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
 
-  async function playCard(el, id) {
+  playCard = playCard;
+  async function playCard(id) {
     console.log(id);
-    if (!(await putCard(userId, id))) {
-      return;
-    }
+    //await putCard(userId, id);
+    //if (!(await putCard(userId, id))) {
+    //  return;
+    //}
+
+    let el = document.getElementById("Card" + id);
+    let direction = el.parentElement.parentElement.parentElement.id.substr(
+      0,
+      1
+    );
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
-    let newCard = el.parentElement.parentElement;
+    let newCard = el;
     newCard.classList.add("playableCard");
     newCard.style.left = rect.left + "px";
     newCard.style.top = rect.y + "px";
@@ -52,6 +62,15 @@ function Deck({ cardsId, direction, userId }) {
     remove(id);
   }
 
+  function remove(id) {
+    const index = deck.indexOf(id);
+    let array = [...deck];
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+    setDeck(array);
+  }
+
   function makeCard() {
     let dis = -35;
     return (id) => {
@@ -62,7 +81,7 @@ function Deck({ cardsId, direction, userId }) {
         newCard = (
           <li
             onClick={(el) => {
-              playCard(el.target, id);
+              playCard(id);
             }}
             key={id}
             className="deckCard"
@@ -75,7 +94,7 @@ function Deck({ cardsId, direction, userId }) {
         newCard = (
           <li
             onClick={(el) => {
-              playCard(el.target, id);
+              playCard(id);
             }}
             key={id}
             className="deckCard rotate90"
@@ -89,15 +108,6 @@ function Deck({ cardsId, direction, userId }) {
     };
   }
 
-  function remove(id) {
-    const index = deck.indexOf(id);
-    let array = [...deck];
-    if (index > -1) {
-      array.splice(index, 1);
-    }
-    setDeck(array);
-  }
-
   return (
     <ul
       className={"deck" + (direction === top || direction === bot ? "h" : "v")}
@@ -109,4 +119,4 @@ function Deck({ cardsId, direction, userId }) {
 }
 
 export default Deck;
-export { bot, top, right, left };
+export { bot, top, right, left, PlayCard };

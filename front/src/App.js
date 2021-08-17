@@ -24,6 +24,7 @@ function App() {
       let group = await getBeginingData("me");
       setUser(group);
       socket = getSocket(group.player.id);
+      console.log(document.getElementsByTagName("div"));
       setLoaded(true);
     }
     fetchData();
@@ -40,6 +41,7 @@ function App() {
           { name: users.bots[2].username, deck: users.bots[2].deck },
         ]}
         userId={users.player.id}
+        socket={socket}
       />
     );
   }

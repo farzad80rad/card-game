@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"strconv"
 	"sync"
 )
 
@@ -29,14 +30,11 @@ func addNewWebSocket_B( w http.ResponseWriter , r * http.Request){
 		var playerInfo  Player.PLayerInfo
 		upgrader.CheckOrigin = func(r *http.Request) bool { return true}
 		conn , err := upgrader.Upgrade(w , r,nil)
-		fmt.Println("11111")
 		if err != nil {
 			fmt.Println("err:", err)
 			return
 		}
-		fmt.Println("1111")
 		err = conn.ReadJSON(&playerInfo)
-		fmt.Println("tsss")
 		if  err != nil{
 			fmt.Println("errr" , err)
 			return
@@ -73,13 +71,14 @@ func putCardHandler_B(c *gin.Context){
 	fmt.Println("card to play " ,req.CardToPut);
 
 	groupInfo := botGameGroups[req.Id]
-	fmt.Println("singnal sent");
 	fmt.Println(groupInfo.CurrentPlayerIndex)
 	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(&Player.PLayerInfo{}){
 		groupInfo.Group.NewCardToPlay = req.CardToPut
 		groupInfo.Group.BotGroupCond.Signal()
+		fmt.Println("singnal sent");
 		c.JSON(http.StatusOK , gin.H{"status": true } )
 	}else{
+		groupInfo.Group.NewCardToPlay = ""
 		c.JSON(http.StatusOK , gin.H{"status": false } )
 	}
 
@@ -94,7 +93,7 @@ func startGame_B(gameInfo *BotGameInfo){
 		if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.BotInfo{}) {
 		 	cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards)
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
-			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay}
+			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay, Id: currentPlayer.(*Player.BotInfo).Id}
 
 		}else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}){
 			gameInfo.Group.BotGroupCond.L.Lock()
@@ -105,7 +104,6 @@ func startGame_B(gameInfo *BotGameInfo){
 			}
 			gameInfo.Group.BotGroupCond.L.Unlock()
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
-			gameInfo.PutCardChan <- putCardInfo{CardToPut: gameInfo.Group.NewCardToPlay}
 			gameInfo.Group.NewCardToPlay = ""
 		}else{
 			fmt.Println("something wrong!")
@@ -171,7 +169,8 @@ func initGame_B(c *gin.Context){
 func makeNewBotGroup( totalDeck []string ) []Player.BotInfo{
 	new3Bots := make([]Player.BotInfo,3)
 	for i:=0 ; i<3 ; i++ {
-		new3Bots[i].Name = "Bot1"
+		new3Bots[i].Name = "Bot " + strconv.Itoa(i)
+		new3Bots[i].Id = uuid.New()
 		new3Bots[i].Deck = totalDeck[:13]
 		totalDeck = totalDeck[13:]
 	}
