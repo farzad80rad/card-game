@@ -8,32 +8,31 @@ const left = "l";
 const bot = "b";
 const right = "r";
 
-let PlayCard;
-
 function Deck({ cardsId, direction, userId }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
+  let userIdin = userId;
 
-  playCard = playCard;
   async function playCard(id) {
-    console.log(id);
-    //await putCard(userId, id);
+    console.log("put card event");
+
+    if (direction == bot) await putCard(userIdin, id);
     //if (!(await putCard(userId, id))) {
     //  return;
     //}
-
     let el = document.getElementById("Card" + id);
-    let direction = el.parentElement.parentElement.parentElement.id.substr(
-      0,
-      1
-    );
+
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
     let newCard = el;
+    console.log(direction);
     newCard.classList.add("playableCard");
     newCard.style.left = rect.left + "px";
     newCard.style.top = rect.y + "px";
     selfDeck.appendChild(newCard);
+    newCard.classList.add("playableCard");
+
+    console.log("thiiiiiiiiiiiiiiiiiiiiiiiis:");
     setTimeout(() => {
       switch (direction) {
         case bot:
@@ -58,8 +57,9 @@ function Deck({ cardsId, direction, userId }) {
           newCard.style.top = "42%";
           newCard.classList.toggle("is-flipped");
       }
+      console.log(newCard);
+      remove(id);
     }, 50);
-    remove(id);
   }
 
   function remove(id) {
@@ -119,4 +119,4 @@ function Deck({ cardsId, direction, userId }) {
 }
 
 export default Deck;
-export { bot, top, right, left, PlayCard };
+export { bot, top, right, left };

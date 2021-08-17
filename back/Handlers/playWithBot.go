@@ -100,7 +100,6 @@ func startGame_B(gameInfo *BotGameInfo){
 			for gameInfo.Group.NewCardToPlay == "" {
 				gameInfo.Group.BotGroupCond.Wait()
 				fmt.Println("awaked")
-				fmt.Println(gameInfo.Group.NewCardToPlay);
 			}
 			gameInfo.Group.BotGroupCond.L.Unlock()
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
