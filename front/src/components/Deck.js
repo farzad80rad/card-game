@@ -13,9 +13,9 @@ function Deck({ cardsId, direction, userId }) {
   let cardMaker = makeCard();
   let userIdin = userId;
 
-  async function playCard(id) {
+  async function playCard(id, cheat) {
     console.log("put card event");
-
+    if (cheat == true) return;
     if (direction == bot) await putCard(userIdin, id);
     //if (!(await putCard(userId, id))) {
     //  return;

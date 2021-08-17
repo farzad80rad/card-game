@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="431367e4-9d7f-4b16-9890-159bcb07e350" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/playWithBot.go" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/playWithBot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Deck.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Deck.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/fetchingData/connectWebSoucket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/fetchingData/connectWebSoucket.js" afterDir="false" />
-    </list>
+    <list default="true" id="431367e4-9d7f-4b16-9890-159bcb07e350" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

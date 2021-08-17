@@ -9,13 +9,15 @@ function getSocket(userId) {
     console.log("closed");
   };
 
-  let g = true;
   socket.onmessage = (message) => {
-    let el = document.getElementById("Cardh6");
-    if (g) {
-      el.click();
-      g = false;
-    }
+    console.log(message);
+    console.log(message.data);
+    console.log("Card" + message.data.CardToPut);
+    let el = document.getElementById(
+      "Card" + JSON.parse(message.data).CardToPut
+    );
+
+    el.click();
     // PlayCard(group.bots[0].deck[0], group.bots[0].deck);
   };
 
