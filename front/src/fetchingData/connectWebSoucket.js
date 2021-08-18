@@ -22,6 +22,11 @@ function getSocket(userId) {
         break;
       case "clean table":
         console.log("clean Table");
+        let cards = document.getElementsByClassName("playableCard");
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].classList.remove("is-flipped");
+          cards[i].classList.add("gatterCards");
+        }
         break;
     }
 

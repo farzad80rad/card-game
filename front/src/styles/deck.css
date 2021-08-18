@@ -31,3 +31,8 @@
   height: 100px;
   transition: left 0.5s ease-out, top 0.5s ease-out, transform 0.5s;
 }
+.gatterCards {
+  top: 20px !important;
+  left: 92% !important;
+  transform: scale(0.7);
+}

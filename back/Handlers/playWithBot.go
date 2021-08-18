@@ -12,6 +12,7 @@ import (
 	"reflect"
 	"strconv"
 	"sync"
+	"time"
 )
 
 type putCardInfo struct {
@@ -119,7 +120,7 @@ func startGame_B(gameInfo *BotGameInfo){
 		fmt.Println("index: " , gameInfo.CurrentPlayerIndex , "  onbouard" , gameInfo.OnBoardCards)
 
 		if len(gameInfo.OnBoardCards) >= 4 {
-			gameInfo.CleanTableChan <- true;
+
 			var max = "s2";
 			var maxIndex = 0;
 			for index , value := range gameInfo.OnBoardCards {
@@ -133,6 +134,8 @@ func startGame_B(gameInfo *BotGameInfo){
 			gameInfo.CurrentPlayerIndex = (gameInfo.CurrentPlayerIndex + 1) % 4;
 			gameInfo.CurrentPlayerIndex += maxIndex-1 ;
 			gameInfo.OnBoardCards = make([]string,0)
+			time.Sleep(1500 * time.Millisecond)
+			gameInfo.CleanTableChan <- true;
 		}
 	}
 }
