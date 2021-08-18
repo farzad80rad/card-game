@@ -15,20 +15,13 @@ function App() {
     ],
   });
 
-  const [selfUser, setSelfUser] = useState({ name: "me", deck: ["h2"], id: 0 });
-  const [bot1, setBot1] = useState({ name: "bot1", deck: ["h2"], id: 1 });
-  const [bot2, setBot2] = useState({ name: "bot2", deck: ["h2"], id: 2 });
-  const [bot3, setBot3] = useState({ name: "bot3", deck: ["h2"], id: 3 });
-
-  let socket;
-
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       let group = await getBeginingData("me");
       setUser(group);
-      socket = getSocket(group.player.id);
+      getSocket(group.player.id);
 
       console.log(document.getElementsByTagName("div"));
       setLoaded(true);

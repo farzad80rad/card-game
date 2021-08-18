@@ -17,6 +17,9 @@ function getSocket(userId) {
       "Card" + JSON.parse(message.data).CardToPut
     );
 
+    el.setAttribute("selfdefind_ok", true);
+    console.log("start from hear");
+    console.log(el);
     el.click();
     // PlayCard(group.bots[0].deck[0], group.bots[0].deck);
   };

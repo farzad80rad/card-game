@@ -1,6 +1,6 @@
 import Card from "./Card";
 import "../styles/deck.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { putCard } from "../fetchingData/playCard";
 
 const top = "t";
@@ -11,27 +11,25 @@ const right = "r";
 function Deck({ cardsId, direction, userId }) {
   const [deck, setDeck] = useState([...cardsId]);
   let cardMaker = makeCard();
-  let userIdin = userId;
 
   async function playCard(id) {
     console.log("put card event");
-    if (direction == bot)
+    if (direction === bot)
       if (!(await putCard(userId, id))) {
         return;
       }
     let el = document.getElementById("Card" + id);
+    if (direction !== bot && !el.getAttribute("selfdefind_ok")) return;
 
     const selfDeck = document.getElementById(direction + "Deck");
     const rect = el.getBoundingClientRect();
     let newCard = el;
-    console.log(direction);
     newCard.classList.add("playableCard");
     newCard.style.left = rect.left + "px";
     newCard.style.top = rect.y + "px";
     selfDeck.appendChild(newCard);
     newCard.classList.add("playableCard");
 
-    console.log("thiiiiiiiiiiiiiiiiiiiiiiiis:");
     setTimeout(() => {
       switch (direction) {
         case bot:
@@ -55,6 +53,11 @@ function Deck({ cardsId, direction, userId }) {
           newCard.style.left = "45%";
           newCard.style.top = "42%";
           newCard.classList.toggle("is-flipped");
+          break;
+
+        default:
+          console.log("direction is not valid");
+          break;
       }
       console.log(newCard);
       remove(id);
@@ -76,7 +79,7 @@ function Deck({ cardsId, direction, userId }) {
       let newCard;
       dis += 35;
 
-      if (direction === top || direction == bot)
+      if (direction === top || direction === bot)
         newCard = (
           <li
             onClick={(el) => {

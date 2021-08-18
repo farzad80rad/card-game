@@ -24,15 +24,15 @@ function Table({ users, userId }) {
 
       <div className="midLine">
         <div className="leftDeck ">
-          <PlayerInfo name={users[1].name} />
-          <Deck cardsId={users[1].deck} direction={left} />
+          <PlayerInfo name={users[3].name} />
+          <Deck cardsId={users[3].deck} direction={left} />
         </div>
         <div className="rightDeckPlayer">
           <div className="rightDeck">
-            <Deck cardsId={users[3].deck} direction={right} />
+            <Deck cardsId={users[1].deck} direction={right} />
           </div>
           <div className="rightlinePlayer">
-            <PlayerInfo name={users[3].name} />
+            <PlayerInfo name={users[1].name} />
           </div>
         </div>
       </div>
