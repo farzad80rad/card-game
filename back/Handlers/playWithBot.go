@@ -19,6 +19,12 @@ type putCardInfo struct {
 	CardToPut string `json:"CardToPut" binding:"required"`;
 }
 
+type websocketSendingInfo  struct {
+	Id uuid.UUID `json:"id" `
+	CardToPut string `json:"CardToPut" `;
+	Type string `json:"type"`
+}
+
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize: 1024,
@@ -26,38 +32,41 @@ var upgrader = websocket.Upgrader{
 }
 
 func addNewWebSocket_B( w http.ResponseWriter , r * http.Request){
-		fmt.Println("enter to websocket ")
-		var playerInfo  Player.PLayerInfo
-		upgrader.CheckOrigin = func(r *http.Request) bool { return true}
-		conn , err := upgrader.Upgrade(w , r,nil)
-		if err != nil {
-			fmt.Println("err:", err)
-			return
-		}
-		err = conn.ReadJSON(&playerInfo)
-		if  err != nil{
-			fmt.Println("errr" , err)
-			return
-		}
-		fmt.Println("connnect to websocket ")
+	fmt.Println("enter to websocket ")
+	var playerInfo  Player.PLayerInfo
+	upgrader.CheckOrigin = func(r *http.Request) bool { return true}
+	conn , err := upgrader.Upgrade(w , r,nil)
+	if err != nil {
+		fmt.Println("err:", err)
+		return
+	}
+	err = conn.ReadJSON(&playerInfo)
+	if  err != nil{
+		fmt.Println("errr" , err)
+		return
+	}
+	fmt.Println("connnect to websocket ")
+	go serveSocket_B(playerInfo.Id,conn)
+}
 
+func serveSocket_B(id uuid.UUID , conn *websocket.Conn) {
 
-	thisBotGameInfo := botGameGroups[playerInfo.Id]
-		for {
-			select {
-			case newPutInfo, valid := <- thisBotGameInfo.PutCardChan :
-				if !valid {
-					fmt.Println("closing socket and chan")
-					close(thisBotGameInfo.PutCardChan)
-					conn.Close()
-					return;
-				}
-				if err := conn.WriteJSON(newPutInfo) ; err != nil {
-					log.Println("errr:" , err)
-				}
-				fmt.Println("send message : " , newPutInfo );
+	thisBotGameInfo := botGameGroups[id]
+	for {
+		select {
+		case newPutInfo := <- thisBotGameInfo.PutCardChan :
+			if err := conn.WriteJSON(websocketSendingInfo{Id: newPutInfo.Id , CardToPut: newPutInfo.CardToPut , Type: "put card"}) ; err != nil {
+				log.Println("errr:" , err)
 			}
+			fmt.Println("send message : " , newPutInfo );
+
+		case <- thisBotGameInfo.CleanTableChan:
+			if err := conn.WriteJSON(websocketSendingInfo{Type: "clean table"}) ; err != nil {
+				log.Println("errr:" , err)
+			}
+			fmt.Println("should clean table" );
 		}
+	}
 }
 
 
@@ -110,6 +119,7 @@ func startGame_B(gameInfo *BotGameInfo){
 		fmt.Println("index: " , gameInfo.CurrentPlayerIndex , "  onbouard" , gameInfo.OnBoardCards)
 
 		if len(gameInfo.OnBoardCards) >= 4 {
+			gameInfo.CleanTableChan <- true;
 			var max = "s2";
 			var maxIndex = 0;
 			for index , value := range gameInfo.OnBoardCards {
@@ -122,7 +132,6 @@ func startGame_B(gameInfo *BotGameInfo){
 			}
 			gameInfo.CurrentPlayerIndex = (gameInfo.CurrentPlayerIndex + 1) % 4;
 			gameInfo.CurrentPlayerIndex += maxIndex-1 ;
-
 			gameInfo.OnBoardCards = make([]string,0)
 		}
 	}
@@ -155,6 +164,7 @@ func initGame_B(c *gin.Context){
 	botGroupToAdd.OnBoardCards = make([]string,0)
 	botGroupToAdd.Group = &newBotGroup
 	botGroupToAdd.PutCardChan = make(chan putCardInfo,1);
+	botGroupToAdd.CleanTableChan = make(chan bool,1);
 
 	botGameGroups[newPlayer.Id] = &botGroupToAdd
 	c.JSON(http.StatusOK, gin.H{

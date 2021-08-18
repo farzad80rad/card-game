@@ -129,6 +129,12 @@ func compareChars(type1 , type2 string) int{
 	case type2 == "j":
 		return -1;
 		break;
+	case type1 == "10":
+		return 1;
+		break;
+	case type2 == "10":
+		return -1;
+		break;
 	default:
 		return strings.Compare(type1,type2);
 		break;

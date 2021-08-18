@@ -21,6 +21,7 @@ type BotGameInfo struct {
 	CurrentPlayerIndex int  `json:"index" binding:"-"` // 0 for selfPlayer and others for bots
 	OnBoardCards []string  `json:"deck" binding:"-"`
 	PutCardChan chan putCardInfo;
+	CleanTableChan chan bool
 }
 
 var pendingPlayers []string ;
