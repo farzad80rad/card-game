@@ -2,6 +2,7 @@ package Handlers
 
 import (
 	"github.com/farzad80rad/cards/back/Player"
+	"github.com/farzad80rad/cards/back/card"
 	"github.com/google/uuid"
 	"sync"
 )
@@ -19,7 +20,7 @@ type BotGroup struct {
 type BotGameInfo struct {
 	Group *BotGroup `json:"botsAndPlayer" binding:"-"`
 	CurrentPlayerIndex int  `json:"index" binding:"-"` // 0 for selfPlayer and others for bots
-	OnBoardCards []string  `json:"deck" binding:"-"`
+	OnBoardCards card.Deck  `json:"deck" binding:"-"`
 	PutCardChan chan putCardInfo;
 	CleanTableChan chan bool
 }

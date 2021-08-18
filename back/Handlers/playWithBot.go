@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"sort"
 	"strconv"
 	"sync"
 	"time"
@@ -133,13 +134,12 @@ func startGame_B(gameInfo *BotGameInfo){
 			}
 			gameInfo.CurrentPlayerIndex = (gameInfo.CurrentPlayerIndex + 1) % 4;
 			gameInfo.CurrentPlayerIndex += maxIndex-1 ;
-			gameInfo.OnBoardCards = make([]string,0)
+			gameInfo.OnBoardCards = make(card.Deck,0)
 			time.Sleep(1500 * time.Millisecond)
 			gameInfo.CleanTableChan <- true;
 		}
 	}
 }
-
 
 
 func initGame_B(c *gin.Context){
@@ -154,6 +154,7 @@ func initGame_B(c *gin.Context){
 	newPlayer.Id = uuid.New()
 	newTotaldeck := card.GetCardsSuffuledArray()
 	newPlayer.Deck = newTotaldeck[:13]
+	sort.Sort(newPlayer.Deck);
 	bots := makeNewBotGroup(newTotaldeck[13:])
 
 
@@ -178,12 +179,13 @@ func initGame_B(c *gin.Context){
 	return
 }
 
-func makeNewBotGroup( totalDeck []string ) []Player.BotInfo{
+func makeNewBotGroup( totalDeck card.Deck ) []Player.BotInfo{
 	new3Bots := make([]Player.BotInfo,3)
 	for i:=0 ; i<3 ; i++ {
 		new3Bots[i].Name = "Bot " + strconv.Itoa(i)
 		new3Bots[i].Id = uuid.New()
 		new3Bots[i].Deck = totalDeck[:13]
+		sort.Sort(new3Bots[i].Deck)
 		totalDeck = totalDeck[13:]
 	}
 	return new3Bots

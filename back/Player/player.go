@@ -1,6 +1,9 @@
 package Player
 
-import "github.com/google/uuid"
+import (
+	"github.com/farzad80rad/cards/back/card"
+	"github.com/google/uuid"
+)
 
 type Player interface {
 	PlayCard([]string) string
@@ -9,7 +12,7 @@ type Player interface {
 type PLayerInfo struct  {
 	UserName string `json:"username" binding:"-"`;
 	Id uuid.UUID `json:"id" binding:"-"`
-	Deck []string `json:"deck" binding:"-"`;
+	Deck card.Deck `json:"deck" binding:"-"`;
 }
 
 func ( player *PLayerInfo) PlayCard (perviosCards []string) string {
