@@ -45,6 +45,9 @@ function Table({ users, userId }) {
           <PlayerInfo name={users[0].name} />
         </div>
       </div>
+
+      <div className="selfTeamWoneCards">Self Team Score:</div>
+      <div className="opponentTeamWoneCards">Opponent Team Score:</div>
     </section>
   );
 }

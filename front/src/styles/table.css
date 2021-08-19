@@ -83,3 +83,24 @@
   display: flex;
   justify-content: center;
 }
+
+.selfTeamWoneCards,
+.opponentTeamWoneCards {
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  padding-top: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 3px black solid;
+  border-radius: 7px;
+  width: 23vw;
+  height: 15vh;
+}
+
+.selfTeamWoneCards{
+  left: 5px;
+}
+
+.opponentTeamWoneCards {
+  right: 5px;
+}

@@ -21,7 +21,7 @@ function Deck({ cardsId, direction, userId }) {
     let el = document.getElementById("Card" + id);
     if (direction !== bot && !el.getAttribute("selfdefind_ok")) return;
 
-    const selfDeck = document.getElementById(direction + "Deck");
+    const selfDeck = document.getElementById("table");
     const rect = el.getBoundingClientRect();
     let newCard = el;
     newCard.classList.add("playableCard");
