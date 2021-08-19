@@ -1,6 +1,7 @@
 function getSocket(userId) {
   let socket = new WebSocket("ws://localhost:8081/hokm/websocketBot");
   let selfWonCards = 0;
+  let opponentWonCards = 0;
   socket.onopen = () => {
     console.log("Opened");
     socket.send(JSON.stringify({ id: userId }));
@@ -25,21 +26,35 @@ function getSocket(userId) {
         console.log("clean Table");
         let cards = document.getElementsByClassName("playableCard ");
         for (var i = 0; i < cards.length; i++) {
-          if (cards[i].classList.contains("gatterCardsSelf")) {
-            console.log("skip");
+          if (cards[i].classList.contains("gatterCards")) {
             continue;
           }
           cards[i].classList.remove("is-flipped");
-          cards[i].classList.add("gatterCardsSelf");
-          cards[i].style.left = "auto";
-          cards[i].style.right = "" + (40 * selfWonCards + 10) + "px";
-          if (selfWonCards % 2 === 1) {
-            cards[i].classList.add("cardGatterdRotated");
-            cards[i].style.right = "" + (40 * selfWonCards - 10) + "px";
+          cards[i].classList.add("gatterCards");
+          if (jsonRes.SelfTeamWin === true) {
+            cards[i].style.left = "" + (40 * selfWonCards + 10) + "px";
+            if (selfWonCards % 2 === 1) {
+              cards[i].classList.add("cardGatterdRotated");
+              cards[i].style.left = "" + (40 * selfWonCards + 30) + "px";
 
+            }
+          }
+          else {
+            cards[i].style.left = "auto";
+            cards[i].style.right = "" + (40 * opponentWonCards + 10) + "px";
+            if (opponentWonCards % 2 === 1) {
+              cards[i].classList.add("cardGatterdRotated");
+              cards[i].style.right = "" + (40 * opponentWonCards - 10) + "px";
+
+            }
           }
         }
-        selfWonCards += 1;
+        if (jsonRes.SelfTeamWin === true) {
+          selfWonCards += 1;
+        }
+        else {
+          opponentWonCards += 1;
+        }
 
         break;
       default:

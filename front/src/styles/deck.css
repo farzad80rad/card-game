@@ -34,7 +34,7 @@
     transform 0.5s;
 }
 
-.gatterCardsSelf {
+.gatterCards {
   position: absolute;
   top: 40px !important;
   transform: scale(0.7);

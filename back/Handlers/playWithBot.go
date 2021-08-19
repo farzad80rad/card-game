@@ -23,9 +23,10 @@ type putCardInfo struct {
 }
 
 type websocketSendingInfo struct {
-	Id        uuid.UUID `json:"id" `
-	CardToPut string    `json:"CardToPut" `
-	Type      string    `json:"type"`
+	Id          uuid.UUID `json:"id" `
+	CardToPut   string    `json:"CardToPut" `
+	Type        string    `json:"type"`
+	SelfTeamWin bool      `json:"SelfTeamWin"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -62,10 +63,17 @@ func serveSocket_B(id uuid.UUID, conn *websocket.Conn) {
 			}
 			fmt.Println("send message : ", newPutInfo)
 
-		case <-thisBotGameInfo.CleanTableChan:
-			if err := conn.WriteJSON(websocketSendingInfo{Type: "clean table"}); err != nil {
-				log.Println("errr:", err)
+		case selfWin := <-thisBotGameInfo.CleanTableChan:
+			if selfWin {
+				if err := conn.WriteJSON(websocketSendingInfo{Type: "clean table", SelfTeamWin: true}); err != nil {
+					log.Println("errr:", err)
+				}
+			} else {
+				if err := conn.WriteJSON(websocketSendingInfo{Type: "clean table", SelfTeamWin: false}); err != nil {
+					log.Println("errr:", err)
+				}
 			}
+
 			fmt.Println("should clean table")
 		}
 	}
@@ -135,7 +143,11 @@ func startGame_B(gameInfo *BotGameInfo) {
 			gameInfo.CurrentPlayerIndex += maxIndex - 1
 			gameInfo.OnBoardCards = make(card.Deck, 0)
 			time.Sleep(1500 * time.Millisecond)
-			gameInfo.CleanTableChan <- true
+			if gameInfo.CurrentPlayerIndex%2 == 1 {
+				gameInfo.CleanTableChan <- true
+			} else {
+				gameInfo.CleanTableChan <- false
+			}
 		}
 	}
 }
@@ -172,7 +184,6 @@ func initGame_B(c *gin.Context) {
 		"bots":   bots,
 	})
 	go startGame_B(&botGroupToAdd)
-	return
 }
 
 func makeNewBotGroup(totalDeck card.Deck) []Player.BotInfo {
