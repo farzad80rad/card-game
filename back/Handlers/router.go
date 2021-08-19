@@ -1,14 +1,14 @@
 package Handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
-
 func tempHanderl(c *gin.Context) {
-	c.String(http.StatusOK, "Hello world" )
+	c.String(http.StatusOK, "Hello world")
 }
 
 func CORSMiddleware(c *gin.Context) {
@@ -23,7 +23,7 @@ func CORSMiddleware(c *gin.Context) {
 	c.Next()
 }
 
-func Init() *gin.Engine{
+func Init() *gin.Engine {
 	router := gin.Default()
 	initSys()
 	router.Use(gin.Recovery())
@@ -33,7 +33,7 @@ func Init() *gin.Engine{
 	{
 		hokm.POST("/playWithBot", initGame_B)
 		hokm.POST("/putCardBot", putCardHandler_B)
-		hokm.POST("/playNormal",tempHanderl)
+		hokm.POST("/playNormal", tempHanderl)
 	}
 	return router
 }

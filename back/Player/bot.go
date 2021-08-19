@@ -6,7 +6,7 @@ import (
 )
 
 type BotInfo struct {
-	Name string `json:"username" binding:"-"`;
-	Id uuid.UUID `json:"id" binding:"required"`
-	Deck card.Deck `json:"deck" binding:"-"`;
+	Name string    `json:"username" binding:"-"`
+	Id   uuid.UUID `json:"id" binding:"required"`
+	Deck card.Deck `json:"deck" binding:"-"`
 }

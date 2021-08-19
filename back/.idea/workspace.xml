@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="431367e4-9d7f-4b16-9890-159bcb07e350" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/back.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/back.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/playWithBot.go" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/playWithBot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Handlers/sys.go" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/sys.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player/player.go" beforeDir="false" afterPath="$PROJECT_DIR$/Player/player.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/card/deck.go" beforeDir="false" afterPath="$PROJECT_DIR$/card/deck.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/Deck.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Deck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/InfoPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/InfoPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/PlayerInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/fetchingData/begin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/fetchingData/begin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/fetchingData/connectWebSoucket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/fetchingData/connectWebSoucket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/fetchingData/playCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/fetchingData/playCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/card.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/deck.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/deck.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/infoPanel.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/infoPanel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/playerInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/playerInfo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/styles/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/styles/table.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,14 +59,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="NEW_TOOLWINDOW_STRIPE_DEFAULTS" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable..is.expanded" value="false" />
+    <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
+    <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
+    <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="http.proxy" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">

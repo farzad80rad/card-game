@@ -9,13 +9,12 @@ type Player interface {
 	PlayCard([]string) string
 }
 
-type PLayerInfo struct  {
-	UserName string `json:"username" binding:"-"`;
-	Id uuid.UUID `json:"id" binding:"-"`
-	Deck card.Deck `json:"deck" binding:"-"`;
+type PLayerInfo struct {
+	UserName string    `json:"username" binding:"-"`
+	Id       uuid.UUID `json:"id" binding:"-"`
+	Deck     card.Deck `json:"deck" binding:"-"`
 }
 
-func ( player *PLayerInfo) PlayCard (perviosCards []string) string {
+func (player *PLayerInfo) PlayCard(perviosCards []string) string {
 	return ""
 }
-
