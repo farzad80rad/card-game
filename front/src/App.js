@@ -1,4 +1,4 @@
-import InfoPanel from "./components/InfoPanel";
+import ChatPan from "./components/ChatPan";
 import Table from "./components/Table";
 import "./styles/app.css";
 import { useEffect, useState } from "react";
@@ -48,7 +48,7 @@ function App() {
     <div className="appBody">
       <div className="tablePan">{divToShow}</div>
       <div className="infoPan">
-        <InfoPanel />
+        <ChatPan />
       </div>
     </div>
   );

@@ -1,0 +1,44 @@
+.chatBody {
+  width: 99%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  height: 100%;
+  border-left: 2px solid black;
+  padding-left: 2;
+  position: relative;
+}
+
+.chatBox {
+  height: 100%;
+}
+
+.sendBox {
+  height: 5%;
+  width: 100%;
+  display: flex;
+  margin-bottom: 1px;
+}
+
+.sendBox textarea {
+  margin-left: 2px;
+  width: 100%;
+  overflow: visible;
+  padding: 6px;
+  resize: none;
+  border: 2px solid gray;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-right: none;
+}
+
+sendBox textarea:focus {
+  border: 2px solid black;
+}
+
+.sendBox button {
+  background-color: hsl(210, 100%, 63%);
+  padding: 0px 20px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
