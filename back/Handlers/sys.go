@@ -19,11 +19,12 @@ type BotGroup struct {
 }
 
 type BotGameInfo struct {
-	Group              *BotGroup `json:"botsAndPlayer" binding:"-"`
-	CurrentPlayerIndex int       `json:"index" binding:"-"` // 0 for selfPlayer and others for bots
-	OnBoardCards       card.Deck `json:"deck" binding:"-"`
-	PutCardChan        chan putCardInfo
-	CleanTableChan     chan bool
+	Group               *BotGroup            `json:"botsAndPlayer" binding:"-"`
+	CurrentPlayerIndex  int                  `json:"index" binding:"-"` // 0 for selfPlayer and others for bots
+	OnBoardCards        card.Deck            `json:"deck" binding:"-"`
+	OnBoardCardsPutters map[string]uuid.UUID // this is for take track of which card was played by who.
+	PutCardChan         chan putCardInfo
+	CleanTableChan      chan bool
 }
 
 var pendingPlayers []string

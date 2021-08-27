@@ -79,21 +79,20 @@ func serveSocket_B(id uuid.UUID, conn *websocket.Conn) {
 	}
 }
 
-func putCardHandler_B(c *gin.Context) {
+func putCardHandler(c *gin.Context) {
 	var req putCardInfo
 
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 	}
-	fmt.Println("card to play ", req.CardToPut)
 
 	groupInfo := botGameGroups[req.Id]
 	fmt.Println(groupInfo.CurrentPlayerIndex)
-	if reflect.TypeOf(groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]) == reflect.TypeOf(&Player.PLayerInfo{}) {
+	currentPlayer := groupInfo.Group.Players[groupInfo.CurrentPlayerIndex]
+	if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}) && (currentPlayer.(*Player.PLayerInfo).Id == req.Id) {
 		groupInfo.Group.NewCardToPlay = req.CardToPut
 		groupInfo.Group.BotGroupCond.Signal()
-		fmt.Println("singnal sent")
 		c.JSON(http.StatusOK, gin.H{"status": true})
 	} else {
 		groupInfo.Group.NewCardToPlay = ""
@@ -102,38 +101,41 @@ func putCardHandler_B(c *gin.Context) {
 
 }
 
-func startGame_B(gameInfo *BotGameInfo) {
-	selfWins := 0
-	oponentWins := 0
+func startGame(gameInfo *BotGameInfo) {
+	team1Wins := 0
+	team2Wins := 0
+	hokm := "h"
 	for gameInfo.CurrentPlayerIndex = 0; ; gameInfo.CurrentPlayerIndex++ {
 		gameInfo.CurrentPlayerIndex = gameInfo.CurrentPlayerIndex % 4
 		currentPlayer := gameInfo.Group.Players[gameInfo.CurrentPlayerIndex]
-		fmt.Println(reflect.TypeOf(currentPlayer))
-		fmt.Println(reflect.TypeOf(Player.PLayerInfo{}))
+
 		if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.BotInfo{}) {
-			cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards, "h")
+			// bot turn
+			cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards, hokm)
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
+			gameInfo.OnBoardCardsPutters[cardToPlay] = currentPlayer.(*Player.BotInfo).Id
 			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay, Id: currentPlayer.(*Player.BotInfo).Id}
 
 		} else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}) {
+			// player turn
 			gameInfo.Group.BotGroupCond.L.Lock()
 			for gameInfo.Group.NewCardToPlay == "" {
 				gameInfo.Group.BotGroupCond.Wait()
 			}
 			gameInfo.Group.BotGroupCond.L.Unlock()
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
+			gameInfo.OnBoardCardsPutters[gameInfo.Group.NewCardToPlay] = currentPlayer.(*Player.PLayerInfo).Id
 			gameInfo.Group.NewCardToPlay = ""
 		} else {
 			fmt.Println("something wrong!")
 		}
-		fmt.Println("index: ", gameInfo.CurrentPlayerIndex, "  onbouard", gameInfo.OnBoardCards)
 
 		if len(gameInfo.OnBoardCards) >= 4 {
-
-			var max = "s2"
+			// end of each turn
+			var max = "s2" // just as default. must be somthing that could be the less valuble card in the deck.
 			var maxIndex = 0
 			for index, value := range gameInfo.OnBoardCards {
-				compaerRes := card.Compare(max, value, gameInfo.OnBoardCards[0][:1], "h")
+				compaerRes := card.Compare(max, value, gameInfo.OnBoardCards[0][:1], hokm)
 				fmt.Println(compaerRes)
 				if compaerRes < 0 {
 					maxIndex = index
@@ -148,10 +150,10 @@ func startGame_B(gameInfo *BotGameInfo) {
 			if gameInfo.CurrentPlayerIndex%2 == 1 {
 				fmt.Println("self win")
 				gameInfo.CleanTableChan <- true
-				selfWins += 1
+				team1Wins += 1
 
 			} else {
-				oponentWins += 1
+				team2Wins += 1
 				gameInfo.CleanTableChan <- false
 			}
 
@@ -182,6 +184,7 @@ func initGame_B(c *gin.Context) {
 	botGroupToAdd.CurrentPlayerIndex = 0
 	botGroupToAdd.OnBoardCards = make([]string, 0)
 	botGroupToAdd.Group = &newBotGroup
+	botGroupToAdd.OnBoardCardsPutters = make(map[string]uuid.UUID, 0)
 	botGroupToAdd.PutCardChan = make(chan putCardInfo, 1)
 	botGroupToAdd.CleanTableChan = make(chan bool, 1)
 
@@ -190,7 +193,7 @@ func initGame_B(c *gin.Context) {
 		"player": newPlayer,
 		"bots":   bots,
 	})
-	go startGame_B(&botGroupToAdd)
+	go startGame(&botGroupToAdd)
 }
 
 func makeNewBotGroup(totalDeck card.Deck) []Player.BotInfo {
