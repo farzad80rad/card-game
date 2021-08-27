@@ -103,13 +103,15 @@ func putCardHandler_B(c *gin.Context) {
 }
 
 func startGame_B(gameInfo *BotGameInfo) {
+	selfWins := 0
+	oponentWins := 0
 	for gameInfo.CurrentPlayerIndex = 0; ; gameInfo.CurrentPlayerIndex++ {
 		gameInfo.CurrentPlayerIndex = gameInfo.CurrentPlayerIndex % 4
 		currentPlayer := gameInfo.Group.Players[gameInfo.CurrentPlayerIndex]
 		fmt.Println(reflect.TypeOf(currentPlayer))
 		fmt.Println(reflect.TypeOf(Player.PLayerInfo{}))
 		if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.BotInfo{}) {
-			cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards)
+			cardToPlay := currentPlayer.PlayCard(gameInfo.OnBoardCards, "h")
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
 			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay, Id: currentPlayer.(*Player.BotInfo).Id}
 
@@ -117,7 +119,6 @@ func startGame_B(gameInfo *BotGameInfo) {
 			gameInfo.Group.BotGroupCond.L.Lock()
 			for gameInfo.Group.NewCardToPlay == "" {
 				gameInfo.Group.BotGroupCond.Wait()
-				fmt.Println("awaked")
 			}
 			gameInfo.Group.BotGroupCond.L.Unlock()
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, gameInfo.Group.NewCardToPlay)
@@ -139,15 +140,21 @@ func startGame_B(gameInfo *BotGameInfo) {
 					max = value
 				}
 			}
+			fmt.Println("max : ", max)
 			gameInfo.CurrentPlayerIndex = (gameInfo.CurrentPlayerIndex + 1) % 4
 			gameInfo.CurrentPlayerIndex += maxIndex - 1
 			gameInfo.OnBoardCards = make(card.Deck, 0)
 			time.Sleep(1500 * time.Millisecond)
 			if gameInfo.CurrentPlayerIndex%2 == 1 {
+				fmt.Println("self win")
 				gameInfo.CleanTableChan <- true
+				selfWins += 1
+
 			} else {
+				oponentWins += 1
 				gameInfo.CleanTableChan <- false
 			}
+
 		}
 	}
 }

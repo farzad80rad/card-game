@@ -6,6 +6,25 @@ func (deck Deck) Len() int {
 	return len(deck)
 }
 
+// assumes that this deck has been sorted
+func (deck Deck) GetLessOfCardType(cardType string) (string, bool) {
+	for _, currentCard := range deck {
+		if currentCard[:1] == cardType {
+			return currentCard, true
+		}
+	}
+	return "", false
+}
+
+func (deck Deck) HaseOfType(cardType string) bool {
+	for _, currentCard := range deck {
+		if currentCard[:1] == cardType {
+			return true
+		}
+	}
+	return false
+}
+
 func (deck Deck) Less(i, j int) bool {
 	order1, order2 := intOrder(deck[i][0:1]), intOrder(deck[j][0:1])
 	if order2 != order1 {

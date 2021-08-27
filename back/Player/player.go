@@ -6,7 +6,7 @@ import (
 )
 
 type Player interface {
-	PlayCard([]string) string
+	PlayCard([]string, string) string
 }
 
 type PLayerInfo struct {
@@ -15,6 +15,6 @@ type PLayerInfo struct {
 	Deck     card.Deck `json:"deck" binding:"-"`
 }
 
-func (player *PLayerInfo) PlayCard(perviosCards []string) string {
+func (player *PLayerInfo) PlayCard(perviosCards []string, hokm string) string {
 	return ""
 }
