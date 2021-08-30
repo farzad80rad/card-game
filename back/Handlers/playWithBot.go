@@ -105,7 +105,7 @@ func startGame(gameInfo *BotGameInfo) {
 	team1Wins := 0
 	team2Wins := 0
 	hokm := "h"
-	for gameInfo.CurrentPlayerIndex = 0; ; gameInfo.CurrentPlayerIndex++ {
+	for gameInfo.CurrentPlayerIndex = 0; team1Wins < 7 && team2Wins < 7; gameInfo.CurrentPlayerIndex++ {
 		gameInfo.CurrentPlayerIndex = gameInfo.CurrentPlayerIndex % 4
 		currentPlayer := gameInfo.Group.Players[gameInfo.CurrentPlayerIndex]
 
@@ -147,7 +147,8 @@ func startGame(gameInfo *BotGameInfo) {
 			gameInfo.CurrentPlayerIndex += maxIndex - 1
 			gameInfo.OnBoardCards = make(card.Deck, 0)
 			time.Sleep(1500 * time.Millisecond)
-			if gameInfo.CurrentPlayerIndex%2 == 1 {
+			players := gameInfo.Group.Players
+			if gameInfo.OnBoardCardsPutters[max] == players[0].GetId() || gameInfo.OnBoardCardsPutters[max] == players[2].GetId() {
 				fmt.Println("self win")
 				gameInfo.CleanTableChan <- true
 				team1Wins += 1

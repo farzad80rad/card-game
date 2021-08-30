@@ -7,6 +7,7 @@ import (
 
 type Player interface {
 	PlayCard([]string, string) string
+	GetId() uuid.UUID
 }
 
 type PLayerInfo struct {
@@ -17,4 +18,8 @@ type PLayerInfo struct {
 
 func (player *PLayerInfo) PlayCard(perviosCards []string, hokm string) string {
 	return ""
+}
+
+func (player *PLayerInfo) GetId() uuid.UUID {
+	return player.Id
 }

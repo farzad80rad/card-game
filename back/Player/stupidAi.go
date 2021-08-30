@@ -6,7 +6,12 @@ import (
 	"time"
 
 	"github.com/farzad80rad/cards/back/card"
+	"github.com/google/uuid"
 )
+
+func (ai *BotInfo) GetId() uuid.UUID {
+	return ai.Id
+}
 
 func (ai *BotInfo) PlayCard(perviosCards []string, hokm string) string {
 	time.Sleep(1150 * time.Millisecond)
