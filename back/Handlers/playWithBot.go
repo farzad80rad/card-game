@@ -23,10 +23,11 @@ type putCardInfo struct {
 }
 
 type websocketSendingInfo struct {
-	Id          uuid.UUID `json:"id" `
-	CardToPut   string    `json:"CardToPut" `
-	Type        string    `json:"type"`
-	SelfTeamWin bool      `json:"SelfTeamWin"`
+	Id          uuid.UUID   `json:"id" `
+	CardToPut   string      `json:"CardToPut" `
+	Type        string      `json:"type"`
+	SelfTeamWin bool        `json:"SelfTeamWin"`
+	Message     MessageInfo `json:"message"`
 }
 
 var upgrader = websocket.Upgrader{
@@ -75,6 +76,12 @@ func serveSocket_B(id uuid.UUID, conn *websocket.Conn) {
 			}
 
 			fmt.Println("should clean table")
+
+		case newMessageInfo := <-thisBotGameInfo.MessageChan:
+			if err := conn.WriteJSON(websocketSendingInfo{Message: newMessageInfo, Type: "message"}); err != nil {
+				log.Println("errr:", err)
+			}
+			fmt.Println("send message : ", newMessageInfo)
 		}
 	}
 }
@@ -115,6 +122,7 @@ func startGame(gameInfo *BotGameInfo) {
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
 			gameInfo.OnBoardCardsPutters[cardToPlay] = currentPlayer.(*Player.BotInfo).Id
 			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay, Id: currentPlayer.(*Player.BotInfo).Id}
+			gameInfo.MessageChan <- MessageInfo{Sender: currentPlayer.GetName(), SenderID: currentPlayer.GetId(), Message: "i put " + cardToPlay}
 
 		} else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}) {
 			// player turn
@@ -157,7 +165,6 @@ func startGame(gameInfo *BotGameInfo) {
 				team2Wins += 1
 				gameInfo.CleanTableChan <- false
 			}
-
 		}
 	}
 }
@@ -188,6 +195,7 @@ func initGame_B(c *gin.Context) {
 	botGroupToAdd.OnBoardCardsPutters = make(map[string]uuid.UUID, 0)
 	botGroupToAdd.PutCardChan = make(chan putCardInfo, 1)
 	botGroupToAdd.CleanTableChan = make(chan bool, 1)
+	botGroupToAdd.MessageChan = make(chan MessageInfo, 1)
 
 	botGameGroups[newPlayer.Id] = &botGroupToAdd
 	c.JSON(http.StatusOK, gin.H{

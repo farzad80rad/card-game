@@ -12,6 +12,9 @@ import (
 func (ai *BotInfo) GetId() uuid.UUID {
 	return ai.Id
 }
+func (ai *BotInfo) GetName() string {
+	return ai.Name
+}
 
 func (ai *BotInfo) PlayCard(perviosCards []string, hokm string) string {
 	time.Sleep(1150 * time.Millisecond)

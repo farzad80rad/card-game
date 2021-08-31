@@ -8,12 +8,17 @@ import (
 type Player interface {
 	PlayCard([]string, string) string
 	GetId() uuid.UUID
+	GetName() string
 }
 
 type PLayerInfo struct {
 	UserName string    `json:"username" binding:"-"`
 	Id       uuid.UUID `json:"id" binding:"-"`
 	Deck     card.Deck `json:"deck" binding:"-"`
+}
+
+func (player *PLayerInfo) GetName() string {
+	return player.UserName
 }
 
 func (player *PLayerInfo) PlayCard(perviosCards []string, hokm string) string {

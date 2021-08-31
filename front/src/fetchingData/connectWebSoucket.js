@@ -11,9 +11,8 @@ function getSocket(userId) {
     console.log("closed");
   };
 
+  let messagesBox = document.getElementsByClassName("messagesBox")[0];
   socket.onmessage = (message) => {
-    console.log(message);
-    console.log(message.data.type);
     let jsonRes = JSON.parse(message.data);
     switch (jsonRes.type) {
       case "put card":
@@ -21,6 +20,12 @@ function getSocket(userId) {
         let el = document.getElementById("Card" + jsonRes.CardToPut);
         el.setAttribute("selfdefind_ok", true);
         el.click();
+        break;
+      case "message":
+        console.log(jsonRes.message);
+        let newMessageDiv = document.createElement("div");
+        newMessageDiv.innerHTML = jsonRes.message.Message;
+        messagesBox.appendChild(newMessageDiv);
         break;
       case "clean table":
         console.log("clean Table");
@@ -36,23 +41,19 @@ function getSocket(userId) {
             if (selfWonCards % 2 === 1) {
               cards[i].classList.add("cardGatterdRotated");
               cards[i].style.left = "" + (40 * selfWonCards + 30) + "px";
-
             }
-          }
-          else {
+          } else {
             cards[i].style.left = "auto";
             cards[i].style.right = "" + (40 * opponentWonCards + 10) + "px";
             if (opponentWonCards % 2 === 1) {
               cards[i].classList.add("cardGatterdRotated");
               cards[i].style.right = "" + (40 * opponentWonCards - 10) + "px";
-
             }
           }
         }
         if (jsonRes.SelfTeamWin === true) {
           selfWonCards += 1;
-        }
-        else {
+        } else {
           opponentWonCards += 1;
         }
 
