@@ -1,0 +1,48 @@
+.messageBobble {
+  padding: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  top: 0px;
+}
+
+.messageBobble p {
+  padding: 2px;
+  margin: 3px;
+}
+
+.messageBobble > div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.messageBobble-bobble {
+  padding: 5px;
+  background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.messageBobble-sender {
+  font-size: 0.7rem;
+}
+
+.triangle {
+  content: "";
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
+  border-left: 10px solid transparent;
+  align-self: flex-end;
+  margin-bottom: 7px;
+}
+
+.messageBobble img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

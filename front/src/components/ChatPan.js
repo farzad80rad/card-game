@@ -1,5 +1,6 @@
 import "../styles/chatPan.css";
 import { useEffect } from "react";
+import MessageBobble from "./MessageBobble";
 
 function ChatPan() {
   useEffect(() => {
@@ -25,7 +26,7 @@ function ChatPan() {
     <div className="chatBody">
       <div className="chatBox">
         <div className="messagesBox">
-          <div className="message">first message</div>
+          <MessageBobble sender="tester" messageText="hiiiii " />
         </div>
       </div>
 

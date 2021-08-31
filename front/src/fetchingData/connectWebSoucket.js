@@ -1,3 +1,6 @@
+import ReactDOM from "react-dom";
+import MessageBobble from "../components/MessageBobble";
+
 function getSocket(userId) {
   let socket = new WebSocket("ws://localhost:8081/hokm/websocketBot");
   let selfWonCards = 0;
@@ -12,6 +15,7 @@ function getSocket(userId) {
   };
 
   let messagesBox = document.getElementsByClassName("messagesBox")[0];
+  let maxPerviosScrolledHeigt = 0;
   socket.onmessage = (message) => {
     let jsonRes = JSON.parse(message.data);
     switch (jsonRes.type) {
@@ -23,9 +27,23 @@ function getSocket(userId) {
         break;
       case "message":
         console.log(jsonRes.message);
-        let newMessageDiv = document.createElement("div");
-        newMessageDiv.innerHTML = jsonRes.message.Message;
-        messagesBox.appendChild(newMessageDiv);
+        let newMessageDiv = (
+          <MessageBobble
+            sender={jsonRes.message.sender}
+            messageText={jsonRes.message.message}
+          />
+        );
+        let temp = document.createElement("div");
+        ReactDOM.render(newMessageDiv, temp);
+        console.log(messagesBox.scrollHeight);
+        console.log(messagesBox.scrollTop);
+
+        messagesBox.appendChild(temp);
+        if (maxPerviosScrolledHeigt <= messagesBox.scrollTop) {
+          messagesBox.scrollTop = messagesBox.scrollHeight;
+          maxPerviosScrolledHeigt = messagesBox.scrollTop;
+        }
+
         break;
       case "clean table":
         console.log("clean Table");
