@@ -22,6 +22,7 @@ type putCardInfo struct {
 	CardToPut string    `json:"CardToPut" binding:"required"`
 }
 
+
 type websocketSendingInfo struct {
 	Id          uuid.UUID   `json:"id" `
 	CardToPut   string      `json:"CardToPut" `
@@ -108,6 +109,19 @@ func putCardHandler(c *gin.Context) {
 
 }
 
+
+func sendMessageHandler_B(c *gin.Context) {
+	var req MessageInfo
+
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	groupInfo := botGameGroups[req.GroupId]
+	groupInfo.MessageChan <- req
+	c.JSON(http.StatusOK, gin.H{"status": true})
+}
+
 func startGame(gameInfo *BotGameInfo) {
 	team1Wins := 0
 	team2Wins := 0
@@ -122,7 +136,7 @@ func startGame(gameInfo *BotGameInfo) {
 			gameInfo.OnBoardCards = append(gameInfo.OnBoardCards, cardToPlay)
 			gameInfo.OnBoardCardsPutters[cardToPlay] = currentPlayer.(*Player.BotInfo).Id
 			gameInfo.PutCardChan <- putCardInfo{CardToPut: cardToPlay, Id: currentPlayer.(*Player.BotInfo).Id}
-			gameInfo.MessageChan <- MessageInfo{Sender: currentPlayer.GetName(), SenderID: currentPlayer.GetId(), Message: "i put " + cardToPlay}
+			gameInfo.MessageChan <- MessageInfo{Sender: currentPlayer.GetName(), GroupId: currentPlayer.GetId(), Message: "i put " + cardToPlay}
 
 		} else if reflect.TypeOf(currentPlayer) == reflect.TypeOf(&Player.PLayerInfo{}) {
 			// player turn

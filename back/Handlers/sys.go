@@ -20,7 +20,7 @@ type BotGroup struct {
 
 type MessageInfo struct {
 	Sender   string    `json:"sender" binding:"required"`
-	SenderID uuid.UUID `json:"senderId" binding:"required"`
+	GroupId uuid.UUID `json:"groupId" binding:"required"`
 	Message  string    `json:"message" binding:"required"`
 }
 

@@ -7,11 +7,11 @@ import { getSocket } from "./fetchingData/connectWebSoucket";
 
 function App() {
   const [users, setUser] = useState({
-    player: { name: "me", deck: ["h2"], id: 0 },
+    player: { username: "me", deck: ["h2"], id: 0 },
     bots: [
-      { name: "bot1", deck: ["h2"], id: 1 },
-      { name: "bot2", deck: ["h2"], id: 2 },
-      { name: "bot3", deck: ["h2"], id: 3 },
+      { username: "bot1", deck: ["h2"], id: 1 },
+      { username: "bot2", deck: ["h2"], id: 2 },
+      { username: "bot3", deck: ["h2"], id: 3 },
     ],
   });
 
@@ -48,7 +48,7 @@ function App() {
     <div className="appBody">
       <div className="tablePan">{divToShow}</div>
       <div className="infoPan">
-        <ChatPan />
+        <ChatPan userId={users.player.id} userName={users.player.username} />
       </div>
     </div>
   );

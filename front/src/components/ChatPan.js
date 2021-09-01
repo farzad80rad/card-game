@@ -1,8 +1,9 @@
 import "../styles/chatPan.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MessageBobble from "./MessageBobble";
+import { sendMessage } from "../fetchingData/sendMessage";
 
-function ChatPan() {
+function ChatPan({ userId, userName }) {
   useEffect(() => {
     var text = document.getElementById("messageTextArea");
     var sendBox = document.getElementsByClassName("sendBox")[0];
@@ -22,6 +23,8 @@ function ChatPan() {
     resize();
   }, []);
 
+  const [message, setMessage] = useState("");
+
   return (
     <div className="chatBody">
       <div className="chatBox">
@@ -31,8 +34,23 @@ function ChatPan() {
       </div>
 
       <div className="sendBox">
-        <textarea id="messageTextArea" placeholder="message to send"></textarea>
-        <button type="button"> send</button>
+        <textarea
+          id="messageTextArea"
+          placeholder="message to send"
+          value={message}
+          onChange={(el) => setMessage(el.target.value)}
+        ></textarea>
+        <button
+          type="button"
+          onClick={() => {
+            sendMessage(userId, userName, message);
+            setMessage("");
+            var sendBox = document.getElementsByClassName("sendBox")[0];
+            sendBox.style.height = "initial";
+          }}
+        >
+          send
+        </button>
       </div>
     </div>
   );

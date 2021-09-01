@@ -34,6 +34,7 @@ func Init() *gin.Engine {
 		hokm.POST("/playWithBot", initGame_B)
 		hokm.POST("/putCardBot", putCardHandler)
 		hokm.POST("/playNormal", tempHanderl)
+		hokm.POST("/sendMessage", sendMessageHandler_B)
 	}
 	return router
 }
